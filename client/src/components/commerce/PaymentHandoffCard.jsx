@@ -1,0 +1,10 @@
+import { CreditCard, ExternalLink, LoaderCircle, ShieldCheck } from "lucide-react";
+import { usePaymentHandoff } from "../../hooks/useIntegrationData";
+
+export default function PaymentHandoffCard({ order }) {
+  const { data: cachedHandoff, isLoading } = usePaymentHandoff(order.id);
+  const handoff = cachedHandoff || order.payment;
+  const label = handoff?.method || "Payment choice";
+  const status = handoff?.status || "Your payment confirmation will appear here.";
+  return <section className="border border-fitique-line bg-fitique-ivory p-5"><div className="flex items-start gap-3"><CreditCard size={21} className="mt-0.5 shrink-0 text-fitique-plum" /><div><p className="eyebrow text-fitique-brown">Secure payment</p><h2 className="serif mt-1 text-2xl text-fitique-plum">{label}</h2></div></div>{isLoading ? <div className="mt-4 flex items-center gap-2 text-xs text-fitique-ink/60"><LoaderCircle size={15} className="animate-spin text-fitique-plum" /> Checking your secure payment step…</div> : <><p className="mt-3 text-sm leading-6 text-fitique-ink/65">{status}</p>{handoff?.checkoutUrl ? <a href={handoff.checkoutUrl} className="plum-button focus-ring mt-5">Continue to secure payment <ExternalLink size={15} /></a> : handoff?.mode === "elements" ? <div data-payment-elements-slot className="mt-5 border border-dashed border-fitique-brown/50 bg-fitique-paper p-4 text-xs leading-5 text-fitique-ink/65"><strong className="text-fitique-plum">Payment elements area</strong><br />Your provider’s secure embedded card fields can mount in this space.</div> : <div className="mt-5 border-l-2 border-fitique-plum bg-fitique-lilac/35 px-3 py-3 text-xs leading-5 text-fitique-ink/65">Your secure payment link will appear here once the payment session is ready.</div>}</>}<p className="mt-5 flex gap-2 border-t border-fitique-line pt-4 text-[.68rem] leading-5 text-fitique-ink/55"><ShieldCheck size={15} className="mt-0.5 shrink-0 text-fitique-plum" /> Fitique does not see or store payment details. Your payment provider handles them directly.</p></section>;
+}
