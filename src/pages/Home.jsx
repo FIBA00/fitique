@@ -16,7 +16,7 @@ import { usePageMeta } from "../hooks/usePageMeta";
 
 import ProductGrid, {
   ProductSkeleton,
-} from "../components/product/ProductGrid";
+} from "../features/products/components/product.Grid.jsx";
 
 
 import SectionHeading from "../components/heading.jsx";

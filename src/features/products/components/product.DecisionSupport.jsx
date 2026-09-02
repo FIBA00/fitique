@@ -1,0 +1,149 @@
+import { ChevronDown, Ruler, Shirt, Sparkles } from "lucide-react";
+
+const clothingRows = [
+  ["XS", "0–2", "4–6", "32–34"],
+  ["S", "4–6", "8–10", "36–38"],
+  ["M", "8–10", "12–14", "40–42"],
+  ["L", "12–14", "16–18", "44–46"],
+  ["XL", "16–18", "20–22", "48–50"],
+];
+const shoeRows = [
+  ["38", "7", "5", "24"],
+  ["39", "8", "6", "25"],
+  ["40", "9", "7", "26"],
+  ["41", "10", "8", "27"],
+];
+
+export default function ProductDecisionSupport({ product, selectedSize }) {
+  const footwear =
+    product.category?.toLowerCase() === "shoes" ||
+    product.sizes.some(size => /^\d+$/.test(size));
+
+  const rows = footwear
+    ? shoeRows.filter(row => product.sizes.includes(row[0]))
+    : clothingRows.filter(row => product.sizes.includes(row[0]));
+
+  const headers = footwear
+    ? ["Fitique", "US", "UK", "Foot length cm"]
+    : ["Fitique", "US", "UK", "EU"];
+
+  return (
+    <section className="mt-8 border-t border-fitique-line pt-6">
+      <div className="flex items-center gap-3">
+        <span className="grid h-8 w-8 place-items-center rounded-full bg-fitique-lilac/65 text-fitique-plum">
+          <Ruler size={17} />
+        </span>
+        <div>
+          <p className="eyebrow text-fitique-brown">Before you decide</p>
+          <h2 className="serif text-2xl text-fitique-plum">
+            The details, clearly.
+          </h2>
+        </div>
+      </div>
+      <div className="mt-5 grid gap-2">
+        <details className="group border border-fitique-line bg-fitique-ivory">
+          <summary className="focus-ring flex cursor-pointer list-none items-center justify-between gap-3 p-4 text-sm font-extrabold text-fitique-ink">
+            <span className="flex items-center gap-2">
+              <Ruler size={16} className="text-fitique-plum" />
+              Size & conversion guide
+            </span>
+            <ChevronDown
+              size={17}
+              className="transition group-open:rotate-180"
+            />
+          </summary>
+          <div className="border-t border-fitique-line p-4">
+            <p className="text-xs leading-5 text-fitique-ink/65">
+              Your selected size is{" "}
+              <strong className="text-fitique-plum">
+                {selectedSize || "not selected"}
+              </strong>
+              . Use this conversion as a starting point and let the piece’s fit
+              note guide the final decision.
+            </p>
+            <div className="mt-4 overflow-x-auto">
+              <table className="w-full min-w-80 border-collapse text-left text-xs">
+                <thead>
+                  <tr className="border-b border-fitique-line text-fitique-brown">
+                    {headers.map(header => (
+                      <th key={header} className="pb-2 pr-3 font-extrabold">
+                        {header}
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {rows.map(row => (
+                    <tr
+                      key={row[0]}
+                      className={`border-b border-fitique-line/70 ${selectedSize === row[0] ? "bg-fitique-lilac/45 text-fitique-plum" : ""}`}
+                    >
+                      {row.map(value => (
+                        <td key={value} className="py-2 pr-3">
+                          {value}
+                        </td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <p className="mt-4 border-l-2 border-fitique-plum bg-fitique-paper px-3 py-2 text-xs leading-5 text-fitique-ink/65">
+              Between sizes? Choose the roomier option for a relaxed feel, or
+              start with your usual size for a closer line.
+            </p>
+          </div>
+        </details>
+        <details className="group border border-fitique-line bg-fitique-ivory">
+          <summary className="focus-ring flex cursor-pointer list-none items-center justify-between gap-3 p-4 text-sm font-extrabold text-fitique-ink">
+            <span className="flex items-center gap-2">
+              <Shirt size={16} className="text-fitique-plum" />
+              Garment, care & fabric notes
+            </span>
+            <ChevronDown
+              size={17}
+              className="transition group-open:rotate-180"
+            />
+          </summary>
+          <div className="grid gap-4 border-t border-fitique-line p-4 text-xs leading-5 text-fitique-ink/65">
+            <div>
+              <p className="field-label">Garment measurements</p>
+              <p className="mt-1">
+                Product-specific garment measurements will appear here when the
+                collection data is connected. They are kept separate from body
+                measurements for a clearer comparison.
+              </p>
+            </div>
+            <div>
+              <p className="field-label">Care guidance</p>
+              <p className="mt-1">
+                Care details for this piece will appear here with the
+                collection. Until then, follow the garment label as the final
+                reference.
+              </p>
+            </div>
+          </div>
+        </details>
+        <details className="group border border-fitique-line bg-fitique-ivory">
+          <summary className="focus-ring flex cursor-pointer list-none items-center justify-between gap-3 p-4 text-sm font-extrabold text-fitique-ink">
+            <span className="flex items-center gap-2">
+              <Sparkles size={16} className="text-fitique-plum" />
+              Delivery & return context
+            </span>
+            <ChevronDown
+              size={17}
+              className="transition group-open:rotate-180"
+            />
+          </summary>
+          <div className="border-t border-fitique-line p-4 text-xs leading-5 text-fitique-ink/65">
+            <p>
+              Delivery choices and a clear arrival estimate appear at checkout.
+              Once your order is placed, the order page keeps delivery updates,
+              support paths, and return or exchange options in one place.
+            </p>
+          </div>
+        </details>
+      </div>
+    </section>
+  );
+}

@@ -1,6 +1,0 @@
-/* Lavender Lookbook product grid: irregular-feeling editorial rhythm while maintaining efficient responsive shopping scanability. */
-import { useState } from "react";
-import ProductCard from "./ProductCard";
-import ProductQuickView from "./ProductQuickView";
-export function ProductSkeleton({ count = 4 }) { return <div className="grid grid-cols-2 gap-x-3 gap-y-7 sm:grid-cols-3 lg:grid-cols-4">{Array.from({ length: count }).map((_, index) => <div key={index} className="animate-pulse"><div className="aspect-[.76] bg-fitique-paper" /><div className="mt-3 h-3 w-2/5 bg-fitique-lilac" /><div className="mt-2 h-4 w-4/5 bg-fitique-sand" /><div className="mt-2 h-3 w-1/3 bg-fitique-paper" /></div>)}</div>; }
-export default function ProductGrid({ products, priority = false }) { const [quickViewProduct, setQuickViewProduct] = useState(null); return <><div className="grid grid-cols-2 gap-x-3 gap-y-8 sm:grid-cols-3 lg:grid-cols-4">{products.map((product, index) => <ProductCard key={product.id} product={product} priority={priority && index < 2} onQuickView={setQuickViewProduct} />)}</div><ProductQuickView product={quickViewProduct} open={Boolean(quickViewProduct)} onOpenChange={(open) => { if (!open) setQuickViewProduct(null); }} /></>; }

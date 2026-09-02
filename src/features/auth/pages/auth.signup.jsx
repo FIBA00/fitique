@@ -6,11 +6,11 @@ import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router";
 import { z } from "zod";
 
-// ! internal imports 
-import Brand from "../../../components/brand";
-import { authService } from "../api/auth.api";
-import { useSessionStore } from "../hooks/useSession";
-import { usePageMeta } from "../../../hooks/usePageMeta";
+// ! internal imports
+import Brand from "../../../components/brand.jsx";
+import { authService } from "../api/auth.api.js";
+import { useSessionStore } from "../hooks/useSession.js";
+import { usePageMeta } from "../../../hooks/usePageMeta.js";
 
 const schema = z
   .object({
@@ -23,6 +23,7 @@ const schema = z
     message: "Passwords do not match.",
     path: ["confirmPassword"],
   });
+
 export default function Register() {
   usePageMeta(
     "Create account",
@@ -35,6 +36,7 @@ export default function Register() {
     handleSubmit,
     formState: { errors },
   } = useForm({ resolver: zodResolver(schema) });
+
   const mutation = useMutation({
     mutationFn: authService.register,
     onSuccess: data => {
@@ -42,6 +44,7 @@ export default function Register() {
       navigate("/profile");
     },
   });
+
   return (
     <main className="grid min-h-screen bg-fitique-ivory lg:grid-cols-[1.1fr_.9fr]">
       <section className="flex items-center px-6 py-10 sm:px-12">

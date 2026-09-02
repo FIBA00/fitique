@@ -3,20 +3,26 @@ const minute = 60_000;
 export const queryKeys = {
   catalog: {
     list: (filters = {}) => ["catalog", "list", filters],
-    detail: (productId) => ["catalog", "detail", productId],
+    detail: productId => ["catalog", "detail", productId],
     categories: () => ["catalog", "categories"],
   },
   orders: {
     list: () => ["orders", "list"],
-    detail: (orderId) => ["orders", "detail", orderId],
+    detail: orderId => ["orders", "detail", orderId],
   },
   profile: { current: () => ["profile", "current"] },
-  fitCheck: { profile: () => ["fit-check", "profile"], history: () => ["fit-check", "history"] },
-  payment: { methods: () => ["payment", "methods"], handoff: (orderId) => ["payment", "handoff", orderId] },
+  fitCheck: {
+    profile: () => ["fit-check", "profile"],
+    history: () => ["fit-check", "history"],
+  },
+  payment: {
+    methods: () => ["payment", "methods"],
+    handoff: orderId => ["payment", "handoff", orderId],
+  },
   delivery: {
-    detail: (orderId) => ["delivery", "detail", orderId],
-    events: (orderId) => ["delivery", "events", orderId],
-    preferences: (orderId) => ["delivery", "preferences", orderId],
+    detail: orderId => ["delivery", "detail", orderId],
+    events: orderId => ["delivery", "events", orderId],
+    preferences: orderId => ["delivery", "preferences", orderId],
   },
 };
 
@@ -33,6 +39,12 @@ export const cachePolicy = {
 };
 
 export const queryClientDefaults = {
-  queries: { staleTime: minute, gcTime: 15 * minute, retry: 1, refetchOnWindowFocus: false, refetchOnReconnect: true },
+  queries: {
+    staleTime: minute,
+    gcTime: 15 * minute,
+    retry: 1,
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: true,
+  },
   mutations: { retry: 0 },
 };

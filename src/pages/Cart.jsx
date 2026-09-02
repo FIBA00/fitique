@@ -5,7 +5,7 @@ import { useState } from "react";
 import { toast } from "sonner";
 import EmptyState from "../components/feedback/EmptyState";
 import CartSupportPanel from "../components/commerce/CartSupportPanel";
-import { useCartStore } from "../store/cartStore";
+import { useCartStore } from "../features/products/hooks/useCart";
 import { formatCurrency } from "../lib/utils";
 import { usePageMeta } from "../hooks/usePageMeta";
 

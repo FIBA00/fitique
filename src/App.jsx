@@ -7,18 +7,28 @@ import { Toaster } from "sonner";
 import AppLayout from "./components/layout/AppLayout";
 import PageLoader from "./components/loader.jsx";
 
-const Home = lazy(() => import("./pages/Home"));
-const Products = lazy(() => import("./features/products/pages/Products.jsx"));
-const ProductDetails = lazy(() => import("./features/products/pages/ProductDetails.jsx"));
-const Cart = lazy(() => import("./pages/Cart"));
+// # main
+const Home = lazy( () => import( "./pages/Home" ) );
+
+// # auth related
+const Profile = lazy(() => import("./features/auth/pages/auth.profile.jsx"));
+const Login = lazy(() => import("./features/auth/pages/auth.login.jsx"));
+const Register = lazy( () => import( "./features/auth/pages/auth.signup.jsx" ) );
+
+// # products related
+const Products = lazy(() => import("./features/products/pages/products.jsx"));
+const ProductDetails = lazy(() => import("./features/products/pages/productDetails.jsx"));
+
+
+
+const Cart = lazy( () => import( "./pages/Cart" ) );
 const Checkout = lazy(() => import("./pages/Checkout"));
 const OrderConfirmation = lazy(() => import("./features/orders/pages/OrderConfirmation.jsx"));
 const Orders = lazy(() => import("./features/orders/pages/Orders.jsx"));
 const OrderDetails = lazy(() => import("./features/orders/pages/OrderDetails.jsx"));
-const Wishlist = lazy(() => import("./pages/Wishlist"));
-const Profile = lazy(() => import("./features/auth/pages/Profile.jsx"));
-const Login = lazy(() => import("./features/auth/pages/auth.login.jsx"));
-const Register = lazy(() => import("./features/auth/pages/Register.jsx"));
+const Wishlist = lazy( () => import( "./pages/Wishlist" ) );
+
+
 const FitCheck = lazy(() => import("./pages/FitCheck"));
 const FitHistory = lazy(() => import("./pages/FitHistory"));
 const NotFound = lazy(() => import("./pages/NotFound"));

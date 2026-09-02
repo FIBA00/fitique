@@ -6,7 +6,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router";
 import { z } from "zod";
-import { useCartStore } from "../store/cartStore";
+import { useCartStore } from "../features/products/hooks/useCart";
 import { useSessionStore } from "../features/auth/hooks/useSession";
 import { orderService } from "../services/orders";
 import { formatCurrency } from "../lib/utils";

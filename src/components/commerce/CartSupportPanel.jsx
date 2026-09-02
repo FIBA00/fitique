@@ -1,7 +1,7 @@
 import { Gift, MapPin, Tag } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
-import { useCartStore } from "../../store/cartStore";
+import { useCartStore } from "../../features/products/hooks/useCart";
 
 export default function CartSupportPanel() {
   const { promotionCode, setPromotionCode, orderNote, setOrderNote, deliveryPreference, setDeliveryPreference } = useCartStore();

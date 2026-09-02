@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { cachePolicy, queryClientDefaults, queryKeys } from "./queryConfig";
+import { cachePolicy, queryClientDefaults, queryKeys } from "../lib/queryConfig";
 
 describe("Fitique query configuration", () => {
   it("keeps resource query keys isolated by resource and identifier", () => {
