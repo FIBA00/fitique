@@ -6,11 +6,11 @@ import { mockUser } from "../../../data/data.user.js";
 
 export const useSessionStore = create(
   persist(
-    set => ({
+    (set) => ({
       user: mockUser,
-      setUser: user => set({ user }),
+      setUser: (user) => set({ user }),
       logout: () => set({ user: null }),
     }),
-    { name: "fitique-session" }
-  )
+    { name: "fitique-session" },
+  ),
 );

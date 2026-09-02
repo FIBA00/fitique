@@ -13,13 +13,13 @@ export const useCart = create(
         const color = selection.color || product.colors?.[0] || "Default";
         const quantity = selection.quantity || 1;
         const lineId = `${product.id}-${size}-${color}`;
-        const existing = get().items.find(item => item.lineId === lineId);
+        const existing = get().items.find((item) => item.lineId === lineId);
         if (existing) {
           set({
-            items: get().items.map(item =>
+            items: get().items.map((item) =>
               item.lineId === lineId
                 ? { ...item, quantity: item.quantity + quantity }
-                : item
+                : item,
             ),
           });
           return;
@@ -34,13 +34,13 @@ export const useCart = create(
       updateQuantity(lineId, quantity) {
         if (quantity <= 0) return get().removeItem(lineId);
         set({
-          items: get().items.map(item =>
-            item.lineId === lineId ? { ...item, quantity } : item
+          items: get().items.map((item) =>
+            item.lineId === lineId ? { ...item, quantity } : item,
           ),
         });
       },
       removeItem(lineId) {
-        set({ items: get().items.filter(item => item.lineId !== lineId) });
+        set({ items: get().items.filter((item) => item.lineId !== lineId) });
       },
       setPromotionCode(promotionCode) {
         set({ promotionCode: promotionCode.trim().toUpperCase() });
@@ -60,6 +60,6 @@ export const useCart = create(
         });
       },
     }),
-    { name: "fitique-cart" }
-  )
+    { name: "fitique-cart" },
+  ),
 );

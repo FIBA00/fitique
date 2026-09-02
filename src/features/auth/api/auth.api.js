@@ -9,7 +9,7 @@ export const authService = {
     }
     return mockRequest(
       { user: { ...mockUser, email: credentials.email }, token: null },
-      650
+      650,
     );
   },
   async register(details) {
@@ -27,7 +27,7 @@ export const authService = {
         },
         token: null,
       },
-      650
+      650,
     );
   },
   async getProfile() {

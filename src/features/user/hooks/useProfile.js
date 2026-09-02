@@ -14,12 +14,11 @@ export function useProfile(enabled = true) {
   });
 }
 
-
 export function useUpdateProfile() {
   const client = useQueryClient();
   return useMutation({
     mutationFn: authService.updateProfile,
-    onSuccess: profile =>
+    onSuccess: (profile) =>
       client.setQueryData(queryKeys.profile.current(), profile),
   });
 }

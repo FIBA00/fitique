@@ -22,17 +22,17 @@ import { useProfile, useUpdateProfile } from "../../user/hooks/useProfile.js";
 const schema = z.object({
   name: z.string().min(2, "Please enter your name."),
   email: z.string().email("Please use a valid email."),
-} );
+});
 
 export default function Profile() {
   usePageMeta(
     "Your profile",
-    "Manage your Fitique profile and personal fit preferences."
+    "Manage your Fitique profile and personal fit preferences.",
   );
-  
-  const sessionUser = useSessionStore(state => state.user);
-  const setUser = useSessionStore(state => state.setUser);
-  const logout = useSessionStore(state => state.logout);
+
+  const sessionUser = useSessionStore((state) => state.user);
+  const setUser = useSessionStore((state) => state.setUser);
+  const logout = useSessionStore((state) => state.logout);
   const navigate = useNavigate();
   const profileQuery = useProfile(Boolean(sessionUser));
   const user = profileQuery.data || sessionUser;
@@ -45,9 +45,9 @@ export default function Profile() {
     values: { name: user?.name || "", email: user?.email || "" },
   });
   const mutation = useUpdateProfile();
-  
-  if ( !user ) return <Navigate to="/login" replace />;
-  
+
+  if (!user) return <Navigate to="/login" replace />;
+
   return (
     <div className="content-shell py-8 lg:py-12">
       <div className="border-b border-fitique-line pb-7">
@@ -64,13 +64,13 @@ export default function Profile() {
         <section className="border border-fitique-line bg-white p-5 sm:p-6">
           <p className="eyebrow text-fitique-brown">Personal information</p>
           <form
-            onSubmit={handleSubmit(values =>
+            onSubmit={handleSubmit((values) =>
               mutation.mutate(values, {
-                onSuccess: updated => {
+                onSuccess: (updated) => {
                   setUser({ ...user, ...updated });
                   toast("Your profile has been updated");
                 },
-              })
+              }),
             )}
             className="mt-5 grid gap-4"
           >

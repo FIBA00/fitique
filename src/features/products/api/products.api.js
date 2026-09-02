@@ -8,27 +8,28 @@ function filterProducts(items, filters = {}) {
     typeof window !== "undefined"
       ? localStorage.getItem("fitique-preferred-size")
       : "";
-  const discount = product =>
+  const discount = (product) =>
     product.previousPrice
       ? (product.previousPrice - product.price) / product.previousPrice
       : 0;
   return items
     .filter(
-      product =>
+      (product) =>
         !filters.category ||
-        product.category.toLowerCase() === filters.category.toLowerCase()
+        product.category.toLowerCase() === filters.category.toLowerCase(),
     )
-    .filter(product => !filters.size || product.sizes.includes(filters.size))
-    .filter(product => !filters.availability || product.inStock)
+    .filter((product) => !filters.size || product.sizes.includes(filters.size))
+    .filter((product) => !filters.availability || product.inStock)
     .filter(
-      product =>
+      (product) =>
         !term ||
         `${product.name} ${product.category} ${product.type}`
           .toLowerCase()
-          .includes(term)
+          .includes(term),
     )
     .filter(
-      product => !filters.maxPrice || product.price <= Number(filters.maxPrice)
+      (product) =>
+        !filters.maxPrice || product.price <= Number(filters.maxPrice),
     )
     .sort((a, b) =>
       filters.sort === "price-low"
@@ -43,7 +44,7 @@ function filterProducts(items, filters = {}) {
                 ? Number(b.sizes.includes(preferredSize)) -
                     Number(a.sizes.includes(preferredSize)) ||
                   Number(b.newArrival) - Number(a.newArrival)
-                : Number(b.newArrival) - Number(a.newArrival)
+                : Number(b.newArrival) - Number(a.newArrival),
     );
 }
 
@@ -60,7 +61,7 @@ export const productService = {
       const { data } = await api.get(`/products/${id}`);
       return data;
     }
-    return mockRequest(products.find(product => product.id === id));
+    return mockRequest(products.find((product) => product.id === id));
   },
   async listCategories() {
     if (apiIsConfigured) {

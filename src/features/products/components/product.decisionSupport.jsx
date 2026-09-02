@@ -17,11 +17,11 @@ const shoeRows = [
 export default function ProductDecisionSupport({ product, selectedSize }) {
   const footwear =
     product.category?.toLowerCase() === "shoes" ||
-    product.sizes.some(size => /^\d+$/.test(size));
+    product.sizes.some((size) => /^\d+$/.test(size));
 
   const rows = footwear
-    ? shoeRows.filter(row => product.sizes.includes(row[0]))
-    : clothingRows.filter(row => product.sizes.includes(row[0]));
+    ? shoeRows.filter((row) => product.sizes.includes(row[0]))
+    : clothingRows.filter((row) => product.sizes.includes(row[0]));
 
   const headers = footwear
     ? ["Fitique", "US", "UK", "Foot length cm"]
@@ -65,7 +65,7 @@ export default function ProductDecisionSupport({ product, selectedSize }) {
               <table className="w-full min-w-80 border-collapse text-left text-xs">
                 <thead>
                   <tr className="border-b border-fitique-line text-fitique-brown">
-                    {headers.map(header => (
+                    {headers.map((header) => (
                       <th key={header} className="pb-2 pr-3 font-extrabold">
                         {header}
                       </th>
@@ -73,12 +73,12 @@ export default function ProductDecisionSupport({ product, selectedSize }) {
                   </tr>
                 </thead>
                 <tbody>
-                  {rows.map(row => (
+                  {rows.map((row) => (
                     <tr
                       key={row[0]}
                       className={`border-b border-fitique-line/70 ${selectedSize === row[0] ? "bg-fitique-lilac/45 text-fitique-plum" : ""}`}
                     >
-                      {row.map(value => (
+                      {row.map((value) => (
                         <td key={value} className="py-2 pr-3">
                           {value}
                         </td>

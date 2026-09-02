@@ -42,7 +42,7 @@ export default function Brand({ compact = false }) {
         />
         <img
           src="/manus-storage/fitique-logo_ef915542.png"
-          onError={event => {
+          onError={(event) => {
             event.currentTarget.style.opacity = "0";
           }}
           alt=""

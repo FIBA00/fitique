@@ -24,7 +24,7 @@ const trpcClient = trpc.createClient({
   ],
 });
 
-registerSW( { immediate: true } );
+registerSW({ immediate: true });
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -35,5 +35,5 @@ createRoot(document.getElementById("root")).render(
         </BrowserRouter>
       </QueryClientProvider>
     </trpc.Provider>
-  </StrictMode>
+  </StrictMode>,
 );

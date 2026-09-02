@@ -7,13 +7,13 @@ const api = axios.create({
   headers: { "Content-Type": "application/json" },
 });
 api.interceptors.response.use(
-  response => response,
-  error => Promise.reject(error)
+  (response) => response,
+  (error) => Promise.reject(error),
 );
 export const apiIsConfigured = Boolean(configuredBaseUrl);
 export function mockRequest(payload, wait = 350) {
-  return new Promise(resolve =>
-    window.setTimeout(() => resolve(payload), wait)
+  return new Promise((resolve) =>
+    window.setTimeout(() => resolve(payload), wait),
   );
 }
 export default api;

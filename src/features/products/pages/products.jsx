@@ -22,14 +22,13 @@ import { useDiscoveryStore } from "../hooks/useDiscovery.js";
 import { usePageMeta } from "../../../hooks/usePageMeta.hs";
 import { setQuery, toParams } from "../../../lib/utils.js";
 
-
-const categories = [ "All", "Women", "Men", "Kids", "Shoes", "Accessories" ];
+const categories = ["All", "Women", "Men", "Kids", "Shoes", "Accessories"];
 
 // Todo: This code is too large break down to small components
 export default function Products() {
   usePageMeta(
     "Shop",
-    "Browse Fitique’s collection of considered boutique pieces."
+    "Browse Fitique’s collection of considered boutique pieces.",
   );
   const [searchParams, setSearchParams] = useSearchParams();
   const filters = useMemo(
@@ -41,7 +40,7 @@ export default function Products() {
       size: searchParams.get("size") || "",
       availability: searchParams.get("availability") === "in-stock",
     }),
-    [searchParams]
+    [searchParams],
   );
   const { data: items, isLoading } = useProducts(filters);
   const { savedSearches, saveSearch, removeSearch } = useDiscoveryStore();
@@ -57,16 +56,15 @@ export default function Products() {
     !filters.size &&
     !filters.maxPrice &&
     !filters.availability
-      ? items?.find(product => product.newArrival)
+      ? items?.find((product) => product.newArrival)
       : null;
-  
+
   function clearFilters() {
     const fresh = new URLSearchParams();
     if (filters.search) fresh.set("search", filters.search);
     fresh.set("sort", "newest");
     setSearchParams(fresh);
   }
-
 
   return (
     <div className="content-shell py-8 lg:py-12">
@@ -90,7 +88,7 @@ export default function Products() {
 
       <div className="py-5 lg:hidden">
         <div className="flex gap-2 overflow-x-auto pb-1">
-          {categories.map(category => (
+          {categories.map((category) => (
             <button
               key={category}
               onClick={() =>
@@ -98,7 +96,7 @@ export default function Products() {
                   setSearchParams,
                   searchParams,
                   "category",
-                  category === "All" ? "" : category.toLowerCase()
+                  category === "All" ? "" : category.toLowerCase(),
                 )
               }
               className={`focus-ring whitespace-nowrap border px-3 py-2 text-[.65rem] font-extrabold uppercase tracking-[.08em] ${(!filters.category && category === "All") || filters.category.toLowerCase() === category.toLowerCase() ? "border-fitique-plum bg-fitique-plum text-white" : "border-fitique-line bg-white text-fitique-ink"}`}
@@ -108,7 +106,7 @@ export default function Products() {
           ))}
         </div>
       </div>
-        
+
       {/* TODO: change this to sidebar component for products page */}
       <div className="grid gap-8 lg:grid-cols-[14rem_1fr]">
         <aside className="hidden lg:block">
@@ -124,11 +122,11 @@ export default function Products() {
                 </button>
               )}
             </div>
-            
+
             <div className="border-b border-fitique-line py-5">
               <p className="text-sm font-bold">Department</p>
               <div className="mt-3 grid gap-2">
-                {categories.map(category => (
+                {categories.map((category) => (
                   <button
                     key={category}
                     onClick={() =>
@@ -136,7 +134,7 @@ export default function Products() {
                         setSearchParams,
                         searchParams,
                         "category",
-                        category === "All" ? "" : category.toLowerCase()
+                        category === "All" ? "" : category.toLowerCase(),
                       )
                     }
                     className={`focus-ring text-left text-sm ${(!filters.category && category === "All") || filters.category.toLowerCase() === category.toLowerCase() ? "font-extrabold text-fitique-plum" : "text-fitique-ink/65 hover:text-fitique-plum"}`}
@@ -147,7 +145,6 @@ export default function Products() {
               </div>
             </div>
 
-
             <div className="border-b border-fitique-line py-5">
               <label className="field-label" htmlFor="price">
                 Price
@@ -155,12 +152,12 @@ export default function Products() {
               <select
                 id="price"
                 value={filters.maxPrice}
-                onChange={event =>
+                onChange={(event) =>
                   setQuery(
                     setSearchParams,
                     searchParams,
                     "maxPrice",
-                    event.target.value
+                    event.target.value,
                   )
                 }
                 className="field-input text-sm"
@@ -172,7 +169,6 @@ export default function Products() {
               </select>
             </div>
 
-
             <div className="border-b border-fitique-line py-5">
               <label className="field-label" htmlFor="size">
                 Size
@@ -180,18 +176,18 @@ export default function Products() {
               <select
                 id="size"
                 value={filters.size}
-                onChange={event =>
+                onChange={(event) =>
                   setQuery(
                     setSearchParams,
                     searchParams,
                     "size",
-                    event.target.value
+                    event.target.value,
                   )
                 }
                 className="field-input text-sm"
               >
                 <option value="">Any size</option>
-                {["XS", "S", "M", "L", "XL", "38", "39", "40"].map(size => (
+                {["XS", "S", "M", "L", "XL", "38", "39", "40"].map((size) => (
                   <option key={size}>{size}</option>
                 ))}
               </select>
@@ -199,12 +195,12 @@ export default function Products() {
                 <input
                   type="checkbox"
                   checked={filters.availability}
-                  onChange={event =>
+                  onChange={(event) =>
                     setQuery(
                       setSearchParams,
                       searchParams,
                       "availability",
-                      event.target.checked ? "in-stock" : ""
+                      event.target.checked ? "in-stock" : "",
                     )
                   }
                   className="accent-fitique-plum"
@@ -212,7 +208,6 @@ export default function Products() {
                 Available now
               </label>
             </div>
-
 
             <div className="paper-noise mt-7 border border-fitique-line bg-fitique-lilac/55 p-4">
               <HangerMark
@@ -227,15 +222,13 @@ export default function Products() {
                 again.
               </p>
             </div>
-
           </div>
         </aside>
-
 
         <section>
           <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <form
-              onSubmit={event => event.preventDefault()}
+              onSubmit={(event) => event.preventDefault()}
               className="relative max-w-sm flex-1"
             >
               <Search
@@ -244,12 +237,12 @@ export default function Products() {
               />
               <input
                 value={filters.search}
-                onChange={event =>
+                onChange={(event) =>
                   setQuery(
                     setSearchParams,
                     searchParams,
                     "search",
-                    event.target.value
+                    event.target.value,
                   )
                 }
                 placeholder="Search the boutique"
@@ -274,12 +267,12 @@ export default function Products() {
                 <SlidersHorizontal size={14} />
                 <select
                   value={filters.sort}
-                  onChange={event =>
+                  onChange={(event) =>
                     setQuery(
                       setSearchParams,
                       searchParams,
                       "sort",
-                      event.target.value
+                      event.target.value,
                     )
                   }
                   className="bg-transparent py-2 outline-none"
@@ -295,11 +288,10 @@ export default function Products() {
             </div>
           </div>
 
-
           {savedSearches.length > 0 && (
             <div className="mb-5 flex flex-wrap items-center gap-2 border-y border-fitique-line py-3">
               <span className="eyebrow mr-1 text-fitique-brown">Saved</span>
-              {savedSearches.map(item => (
+              {savedSearches.map((item) => (
                 <span
                   key={item.id}
                   className="inline-flex items-center gap-1 border border-fitique-line bg-fitique-paper text-xs"
@@ -327,8 +319,7 @@ export default function Products() {
               Fit-aware sorting brings pieces available in your saved preferred
               size to the front.
             </p>
-          ) }
-          
+          )}
 
           {featuredProduct && (
             <Link
@@ -371,15 +362,15 @@ export default function Products() {
                 </div>
               </div>
             </Link>
-          ) }
-          
+          )}
+
           {isLoading ? (
             <ProductSkeleton count={8} />
           ) : items?.length ? (
             <ProductGrid
               products={
                 featuredProduct
-                  ? items.filter(product => product.id !== featuredProduct.id)
+                  ? items.filter((product) => product.id !== featuredProduct.id)
                   : items
               }
               priority
@@ -400,8 +391,7 @@ export default function Products() {
                 Clear filters
               </button>
             </div>
-          ) }
-          
+          )}
         </section>
       </div>
     </div>

@@ -11,8 +11,8 @@ const links = [
   { to: "/profile", label: "Profile", icon: UserRound },
 ];
 export default function MobileNavigation() {
-  const count = useCartStore(state =>
-    state.items.reduce((total, item) => total + item.quantity, 0)
+  const count = useCartStore((state) =>
+    state.items.reduce((total, item) => total + item.quantity, 0),
   );
   return (
     <nav

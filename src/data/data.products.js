@@ -1,7 +1,6 @@
 const image = (id, options = "auto=format&fit=crop&w=900&q=84") =>
   ["https://images.unsplash.com/", id, "?", options].join("");
 
-
 export const products = [
   {
     id: "eloise-ribbed-midi",
@@ -163,7 +162,6 @@ export const products = [
     newArrival: false,
   },
 ];
-
 
 export const outfitPieces = [
   products[0],

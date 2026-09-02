@@ -3,7 +3,6 @@ import Header from "./Header";
 import MobileNavigation from "./MobileNavigation";
 import SiteFooter from "./SiteFooter";
 
-
 export default function AppLayout({ children, minimal = false }) {
   return (
     <div className="page-shell">

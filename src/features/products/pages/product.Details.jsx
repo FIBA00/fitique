@@ -38,9 +38,9 @@ export default function ProductDetails() {
   const [size, setSize] = useState("");
   const [color, setColor] = useState("");
   const [quantity, setQuantity] = useState(1);
-  const addItem = useCart(state => state.addItem);
-  const wishlist = useWishlistStore(state => state.productIds);
-  const toggleWishlist = useWishlistStore(state => state.toggle);
+  const addItem = useCart((state) => state.addItem);
+  const wishlist = useWishlistStore((state) => state.productIds);
+  const toggleWishlist = useWishlistStore((state) => state.toggle);
   usePageMeta(product?.name || "Piece", product?.description);
 
   useEffect(() => {
@@ -121,7 +121,7 @@ export default function ProductDetails() {
               onClick={() => {
                 toggleWishlist(product.id);
                 toast(
-                  saved ? "Removed from your saved edit" : "Saved to your edit"
+                  saved ? "Removed from your saved edit" : "Saved to your edit",
                 );
               }}
               aria-label="Save this product"
@@ -147,7 +147,7 @@ export default function ProductDetails() {
           <div>
             <span className="field-label">Size</span>
             <div className="flex flex-wrap gap-2">
-              {product.sizes.map(item => (
+              {product.sizes.map((item) => (
                 <button
                   key={item}
                   onClick={() => setSize(item)}
@@ -161,7 +161,7 @@ export default function ProductDetails() {
           <div className="mt-6">
             <span className="field-label">Colour — {color}</span>
             <div className="flex flex-wrap gap-2">
-              {product.colors.map(item => (
+              {product.colors.map((item) => (
                 <button
                   key={item}
                   onClick={() => setColor(item)}
@@ -251,7 +251,7 @@ export default function ProductDetails() {
         <div className="mt-7">
           <ProductGrid
             products={(related || [])
-              .filter(item => item.id !== product.id)
+              .filter((item) => item.id !== product.id)
               .slice(0, 4)}
           />
         </div>

@@ -3,12 +3,12 @@ const minute = 60_000;
 export const queryKeys = {
   catalog: {
     list: (filters = {}) => ["catalog", "list", filters],
-    detail: productId => ["catalog", "detail", productId],
+    detail: (productId) => ["catalog", "detail", productId],
     categories: () => ["catalog", "categories"],
   },
   orders: {
     list: () => ["orders", "list"],
-    detail: orderId => ["orders", "detail", orderId],
+    detail: (orderId) => ["orders", "detail", orderId],
   },
   profile: { current: () => ["profile", "current"] },
   fitCheck: {
@@ -17,12 +17,12 @@ export const queryKeys = {
   },
   payment: {
     methods: () => ["payment", "methods"],
-    handoff: orderId => ["payment", "handoff", orderId],
+    handoff: (orderId) => ["payment", "handoff", orderId],
   },
   delivery: {
-    detail: orderId => ["delivery", "detail", orderId],
-    events: orderId => ["delivery", "events", orderId],
-    preferences: orderId => ["delivery", "preferences", orderId],
+    detail: (orderId) => ["delivery", "detail", orderId],
+    events: (orderId) => ["delivery", "events", orderId],
+    preferences: (orderId) => ["delivery", "preferences", orderId],
   },
 };
 

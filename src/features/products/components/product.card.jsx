@@ -8,15 +8,14 @@ import { formatCurrency, getDiscount } from "../../../lib/utils.js";
 import { useCartStore } from "../../commerce/hooks/useCart.js";
 import { useWishlistStore } from "../../store/wishlistStore";
 
-
 export default function ProductCard({
   product,
   priority = false,
   onQuickView,
 }) {
-  const addItem = useCartStore(state => state.addItem);
-  const wishlist = useWishlistStore(state => state.productIds);
-  const toggleWishlist = useWishlistStore(state => state.toggle);
+  const addItem = useCartStore((state) => state.addItem);
+  const wishlist = useWishlistStore((state) => state.productIds);
+  const toggleWishlist = useWishlistStore((state) => state.toggle);
   const saved = wishlist.includes(product.id);
   const discount = getDiscount(product);
   function toggle(event) {

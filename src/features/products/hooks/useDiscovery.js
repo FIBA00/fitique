@@ -1,16 +1,16 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
-const currentSearch = filters => ({
+const currentSearch = (filters) => ({
   category: filters.category || "",
   search: filters.search || "",
   sort: filters.sort || "newest",
   maxPrice: filters.maxPrice || "",
   size: filters.size || "",
   availability: Boolean(filters.availability),
-} );
+});
 
-const searchLabel = filters =>
+const searchLabel = (filters) =>
   filters.search
     ? `“${filters.search}”`
     : [
@@ -22,16 +22,15 @@ const searchLabel = filters =>
         .filter(Boolean)
         .join(" · ") || "Current edit";
 
-
 export const useDiscovery = create(
   persist(
-    set => ({
+    (set) => ({
       savedSearches: [],
-      saveSearch: filters =>
-        set(state => {
+      saveSearch: (filters) =>
+        set((state) => {
           const payload = currentSearch(filters);
           const existing = state.savedSearches.find(
-            item => JSON.stringify(item.filters) === JSON.stringify(payload)
+            (item) => JSON.stringify(item.filters) === JSON.stringify(payload),
           );
           if (existing) return state;
           return {
@@ -45,11 +44,11 @@ export const useDiscovery = create(
             ].slice(0, 8),
           };
         }),
-      removeSearch: id =>
-        set(state => ({
-          savedSearches: state.savedSearches.filter(item => item.id !== id),
+      removeSearch: (id) =>
+        set((state) => ({
+          savedSearches: state.savedSearches.filter((item) => item.id !== id),
         })),
     }),
-    { name: "fitique-discovery" }
-  )
+    { name: "fitique-discovery" },
+  ),
 );

@@ -22,7 +22,7 @@ export default function ProductGrid({ products, priority = false }) {
       <ProductQuickView
         product={quickViewProduct}
         open={Boolean(quickViewProduct)}
-        onOpenChange={open => {
+        onOpenChange={(open) => {
           if (!open) setQuickViewProduct(null);
         }}
       />

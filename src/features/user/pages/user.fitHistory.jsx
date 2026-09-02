@@ -1,12 +1,12 @@
 import {
-	ArrowLeft,
-	Check,
-	ChevronRight,
-	Clock3,
-	Columns2,
-	LogIn,
-	Sparkles,
-	X,
+  ArrowLeft,
+  Check,
+  ChevronRight,
+  Clock3,
+  Columns2,
+  LogIn,
+  Sparkles,
+  X,
 } from "lucide-react";
 import { Link } from "react-router";
 import { useState } from "react";
@@ -18,328 +18,288 @@ import { HangerMark } from "../../../components/brand";
 import { cachePolicy } from "../../../api/queryConfig";
 
 function formatDate(value) {
-	return new Intl.DateTimeFormat("en", {
-		day: "numeric",
-		month: "short",
-		year: "numeric",
-	}).format(new Date(value));
+  return new Intl.DateTimeFormat("en", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+  }).format(new Date(value));
 }
 
 export default function FitHistory() {
-	usePageMeta(
-		"Fit Check history",
-		"Review and compare your saved Fitique fit recommendations.",
-	);
-	const { isAuthenticated } = useAuth();
-	const {
-		data: history = [],
-		isLoading,
-		isError,
-	} = trpc.fitCheck.history.useQuery(undefined, {
-		enabled: isAuthenticated,
-		...cachePolicy.fitHistory,
-	});
-	const [selectedIds, setSelectedIds] = useState([]);
-	const selected = history.filter((item) => selectedIds.includes(item.id));
-	const comparisonChanges =
-		selected.length === 2
-			? [
-					selected[0].recommendedSize === selected[1].recommendedSize
-						? "The recommended size is consistent across both checks."
-						: `Your recommendation shifts from ${selected[0].recommendedSize} to ${selected[1].recommendedSize}.`,
-					selected[0].confidence === selected[1].confidence
-						? "The confidence level remains the same."
-						: `Confidence moves from ${selected[0].confidence} to ${selected[1].confidence}.`,
-					selected[0].styleTip === selected[1].styleTip
-						? "The styling guidance is aligned."
-						: "The styling note changes with the piece and visual context.",
-				]
-			: [];
-	function toggle(resultId) {
-		setSelectedIds((current) =>
-			current.includes(resultId)
-				? current.filter((id) => id !== resultId)
-				: current.length === 2
-					? [current[1], resultId]
-					: [...current, resultId],
-		);
-	}
+  usePageMeta(
+    "Fit Check history",
+    "Review and compare your saved Fitique fit recommendations.",
+  );
+  const { isAuthenticated } = useAuth();
+  const {
+    data: history = [],
+    isLoading,
+    isError,
+  } = trpc.fitCheck.history.useQuery(undefined, {
+    enabled: isAuthenticated,
+    ...cachePolicy.fitHistory,
+  });
+  const [selectedIds, setSelectedIds] = useState([]);
+  const selected = history.filter((item) => selectedIds.includes(item.id));
+  const comparisonChanges =
+    selected.length === 2
+      ? [
+          selected[0].recommendedSize === selected[1].recommendedSize
+            ? "The recommended size is consistent across both checks."
+            : `Your recommendation shifts from ${selected[0].recommendedSize} to ${selected[1].recommendedSize}.`,
+          selected[0].confidence === selected[1].confidence
+            ? "The confidence level remains the same."
+            : `Confidence moves from ${selected[0].confidence} to ${selected[1].confidence}.`,
+          selected[0].styleTip === selected[1].styleTip
+            ? "The styling guidance is aligned."
+            : "The styling note changes with the piece and visual context.",
+        ]
+      : [];
+  function toggle(resultId) {
+    setSelectedIds((current) =>
+      current.includes(resultId)
+        ? current.filter((id) => id !== resultId)
+        : current.length === 2
+          ? [current[1], resultId]
+          : [...current, resultId],
+    );
+  }
 
-	if (!isAuthenticated)
-		return (
-			<div className="content-shell py-16 text-center">
-				<HangerMark className="mx-auto h-12 w-12 text-fitique-plum" />
-				<p className="eyebrow mt-6 text-fitique-brown">
-					Your private fitting room
-				</p>
-				<h1 className="serif mt-2 text-5xl text-fitique-plum">
-					Keep your fit story close.
-				</h1>
-				<p className="mx-auto mt-4 max-w-md text-sm leading-7 text-fitique-ink/65">
-					Sign in to revisit every saved Fit Check and compare the
-					recommendations that guided your selections.
-				</p>
-				<button
-					onClick={startLogin}
-					className="plum-button focus-ring mt-7">
-					<LogIn size={15} /> Sign in to view your history
-				</button>
-			</div>
-		);
-	return (
-		<div className="bg-fitique-lilac/20">
-			<div className="content-shell py-8 lg:py-12">
-				<Link
-					to="/fit-check"
-					className="focus-ring inline-flex items-center gap-2 text-[.68rem] font-extrabold uppercase tracking-[.1em] text-fitique-brown hover:text-fitique-plum">
-					<ArrowLeft size={15} /> Back to Fit Check
-				</Link>
-				<header className="mt-7 grid gap-5 border-b border-fitique-line pb-7 lg:grid-cols-[.72fr_1.28fr] lg:items-end">
-					<div className="paper-noise border border-fitique-line bg-fitique-lilac/60 p-5">
-						<HangerMark className="h-11 w-11 text-fitique-plum" />
-						<p className="serif mt-12 border-t border-fitique-plum/25 pt-3 text-2xl leading-7 text-fitique-plum">
-							Your past choices have a pattern.
-						</p>
-					</div>
-					<div className="max-w-3xl lg:px-6">
-						<p className="eyebrow text-fitique-brown">
-							Your private archive
-						</p>
-						<h1 className="serif mt-2 text-5xl tracking-[-.05em] text-fitique-plum sm:text-6xl">
-							Fit Check history
-						</h1>
-						<p className="mt-3 max-w-2xl text-sm leading-7 text-fitique-ink/65">
-							Review a saved recommendation or select two entries
-							to compare the details side by side.
-						</p>
-					</div>
-				</header>
-				{isLoading ? (
-					<div className="grid min-h-80 place-items-center">
-						<div className="h-10 w-10 animate-spin rounded-full border-2 border-fitique-lilac border-t-fitique-plum" />
-					</div>
-				) : isError ? (
-					<div className="my-10 border border-[#ddb6b6] bg-[#fbebeb] p-5 text-sm text-[#893838]">
-						We could not load your saved Fit Checks. Please refresh
-						and try again.
-					</div>
-				) : !history.length ? (
-					<section className="my-10 border border-fitique-line bg-fitique-ivory px-6 py-16 text-center">
-						<Sparkles
-							className="mx-auto text-fitique-plum"
-							size={28}
-						/>
-						<h2 className="serif mt-5 text-4xl text-fitique-plum">
-							Your archive is ready when you are.
-						</h2>
-						<p className="mx-auto mt-3 max-w-lg text-sm leading-7 text-fitique-ink/65">
-							Your completed image-led Fit Checks will appear here
-							privately, ready to revisit whenever a purchase
-							deserves a second look.
-						</p>
-						<Link
-							to="/fit-check"
-							className="plum-button focus-ring mt-7">
-							Run a Fit Check <ChevronRight size={15} />
-						</Link>
-					</section>
-				) : (
-					<div className="mt-8 grid gap-8 lg:grid-cols-[1.1fr_.9fr]">
-						<section>
-							<div className="mb-4 flex flex-wrap items-center justify-between gap-3">
-								<div>
-									<p className="eyebrow text-fitique-brown">
-										Saved recommendations
-									</p>
-									<p className="mt-1 text-xs text-fitique-ink/60">
-										Select up to two results to compare.
-									</p>
-								</div>
-								{selectedIds.length > 0 && (
-									<button
-										onClick={() => setSelectedIds([])}
-										className="focus-ring inline-flex items-center gap-1 text-xs font-extrabold text-fitique-brown hover:text-fitique-plum">
-										<X size={14} /> Clear selection
-									</button>
-								)}
-							</div>
-							<div className="grid gap-3">
-								{history.map((item) => {
-									const chosen = selectedIds.includes(
-										item.id,
-									);
-									return (
-										<article
-											key={item.id}
-											className={`border p-4 transition ${chosen ? "border-fitique-plum bg-fitique-lilac/45" : "border-fitique-line bg-fitique-ivory"}`}>
-											<div className="flex gap-4">
-												<img
-													src={item.photoUrl}
-													alt="Saved Fit Check"
-													className="h-24 w-20 shrink-0 object-cover"
-												/>
-												<div className="min-w-0 flex-1">
-													<div className="flex items-start justify-between gap-3">
-														<div>
-															<p className="eyebrow text-fitique-brown">
-																<Clock3
-																	className="mr-1 inline"
-																	size={11}
-																/>{" "}
-																{formatDate(
-																	item.createdAt,
-																)}
-															</p>
-															<h2 className="mt-1 text-sm font-extrabold text-fitique-ink">
-																{
-																	item.productName
-																}
-															</h2>
-														</div>
-														<label className="flex cursor-pointer items-center gap-2 text-[.62rem] font-extrabold uppercase tracking-[.08em] text-fitique-brown">
-															<input
-																type="checkbox"
-																checked={chosen}
-																onChange={() =>
-																	toggle(
-																		item.id,
-																	)
-																}
-																className="accent-fitique-plum"
-															/>{" "}
-															Compare
-														</label>
-													</div>
-													<p className="mt-2 text-xs text-fitique-ink/65">
-														Suggested size{" "}
-														<strong className="text-fitique-plum">
-															{
-																item.recommendedSize
-															}
-														</strong>{" "}
-														· {item.confidence}{" "}
-														confidence
-													</p>
-													<Link
-														to={`/products/${item.productId}`}
-														className="focus-ring mt-3 inline-flex items-center gap-1 text-xs font-bold text-fitique-plum hover:underline">
-														View this piece{" "}
-														<ChevronRight
-															size={13}
-														/>
-													</Link>
-												</div>
-											</div>
-										</article>
-									);
-								})}
-							</div>
-						</section>
-						<aside className="h-fit border border-fitique-line bg-fitique-ivory p-5 lg:sticky lg:top-24">
-							<div className="flex items-center gap-3">
-								<span className="grid h-9 w-9 place-items-center rounded-full bg-fitique-plum text-white">
-									<Columns2 size={17} />
-								</span>
-								<div>
-									<p className="eyebrow text-fitique-brown">
-										Comparison
-									</p>
-									<h2 className="serif text-2xl text-fitique-plum">
-										The details, together
-									</h2>
-								</div>
-							</div>
-							{selected.length < 2 ? (
-								<div className="mt-7 border-t border-fitique-line pt-6">
-									<p className="text-sm leading-7 text-fitique-ink/65">
-										Choose {2 - selected.length} more saved{" "}
-										{selected.length ? "result" : "results"}{" "}
-										to compare their recommended size,
-										confidence, considerations, and stylist
-										notes.
-									</p>
-								</div>
-							) : (
-								<div className="mt-6 grid gap-5">
-									<div className="border-l-2 border-fitique-plum bg-fitique-lilac/40 px-3 py-3">
-										<p className="field-label">
-											What changed
-										</p>
-										<ul className="mt-2 grid gap-1.5 text-xs leading-5 text-fitique-ink/70">
-											{comparisonChanges.map((change) => (
-												<li key={change}>{change}</li>
-											))}
-										</ul>
-									</div>
-									{[
-										["Piece", (entry) => entry.productName],
-										[
-											"Recommendation",
-											(entry) =>
-												`Size ${entry.recommendedSize} · ${entry.confidence} confidence`,
-										],
-										[
-											"Stylist note",
-											(entry) => entry.styleTip,
-										],
-									].map(([label, value]) => (
-										<div key={label}>
-											<p className="field-label">
-												{label}
-											</p>
-											<div className="mt-2 grid gap-2 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
-												{selected.map((entry) => (
-													<div
-														key={entry.id}
-														className="border border-fitique-line bg-white p-3 text-xs leading-5 text-fitique-ink/70">
-														<strong className="block text-fitique-plum">
-															{entry.productName}
-														</strong>
-														<span className="mt-1 block">
-															{value(entry)}
-														</span>
-													</div>
-												))}
-											</div>
-										</div>
-									))}
-									<div>
-										<p className="field-label">
-											Fit considerations
-										</p>
-										<div className="mt-2 grid gap-2">
-											{selected.map((entry) => (
-												<div
-													key={entry.id}
-													className="border-l-2 border-fitique-plum bg-fitique-lilac/30 px-3 py-2 text-xs leading-5 text-fitique-ink/70">
-													<strong className="text-fitique-plum">
-														{entry.productName}
-													</strong>
-													<span className="mt-1 block">
-														{entry.considerations?.join(
-															" · ",
-														) ||
-															"No additional notes."}
-													</span>
-												</div>
-											))}
-										</div>
-									</div>
-									<p className="border-t border-fitique-line pt-5 text-xs leading-5 text-fitique-ink/55">
-										<Check
-											className="mr-1 inline text-fitique-plum"
-											size={13}
-										/>{" "}
-										Every Fit Check remains a personal
-										estimate; the garment guide and your
-										comfort are the final reference.
-									</p>
-								</div>
-							)}
-						</aside>
-					</div>
-				)}
-			</div>
-		</div>
-	);
+  if (!isAuthenticated)
+    return (
+      <div className="content-shell py-16 text-center">
+        <HangerMark className="mx-auto h-12 w-12 text-fitique-plum" />
+        <p className="eyebrow mt-6 text-fitique-brown">
+          Your private fitting room
+        </p>
+        <h1 className="serif mt-2 text-5xl text-fitique-plum">
+          Keep your fit story close.
+        </h1>
+        <p className="mx-auto mt-4 max-w-md text-sm leading-7 text-fitique-ink/65">
+          Sign in to revisit every saved Fit Check and compare the
+          recommendations that guided your selections.
+        </p>
+        <button onClick={startLogin} className="plum-button focus-ring mt-7">
+          <LogIn size={15} /> Sign in to view your history
+        </button>
+      </div>
+    );
+  return (
+    <div className="bg-fitique-lilac/20">
+      <div className="content-shell py-8 lg:py-12">
+        <Link
+          to="/fit-check"
+          className="focus-ring inline-flex items-center gap-2 text-[.68rem] font-extrabold uppercase tracking-[.1em] text-fitique-brown hover:text-fitique-plum"
+        >
+          <ArrowLeft size={15} /> Back to Fit Check
+        </Link>
+        <header className="mt-7 grid gap-5 border-b border-fitique-line pb-7 lg:grid-cols-[.72fr_1.28fr] lg:items-end">
+          <div className="paper-noise border border-fitique-line bg-fitique-lilac/60 p-5">
+            <HangerMark className="h-11 w-11 text-fitique-plum" />
+            <p className="serif mt-12 border-t border-fitique-plum/25 pt-3 text-2xl leading-7 text-fitique-plum">
+              Your past choices have a pattern.
+            </p>
+          </div>
+          <div className="max-w-3xl lg:px-6">
+            <p className="eyebrow text-fitique-brown">Your private archive</p>
+            <h1 className="serif mt-2 text-5xl tracking-[-.05em] text-fitique-plum sm:text-6xl">
+              Fit Check history
+            </h1>
+            <p className="mt-3 max-w-2xl text-sm leading-7 text-fitique-ink/65">
+              Review a saved recommendation or select two entries to compare the
+              details side by side.
+            </p>
+          </div>
+        </header>
+        {isLoading ? (
+          <div className="grid min-h-80 place-items-center">
+            <div className="h-10 w-10 animate-spin rounded-full border-2 border-fitique-lilac border-t-fitique-plum" />
+          </div>
+        ) : isError ? (
+          <div className="my-10 border border-[#ddb6b6] bg-[#fbebeb] p-5 text-sm text-[#893838]">
+            We could not load your saved Fit Checks. Please refresh and try
+            again.
+          </div>
+        ) : !history.length ? (
+          <section className="my-10 border border-fitique-line bg-fitique-ivory px-6 py-16 text-center">
+            <Sparkles className="mx-auto text-fitique-plum" size={28} />
+            <h2 className="serif mt-5 text-4xl text-fitique-plum">
+              Your archive is ready when you are.
+            </h2>
+            <p className="mx-auto mt-3 max-w-lg text-sm leading-7 text-fitique-ink/65">
+              Your completed image-led Fit Checks will appear here privately,
+              ready to revisit whenever a purchase deserves a second look.
+            </p>
+            <Link to="/fit-check" className="plum-button focus-ring mt-7">
+              Run a Fit Check <ChevronRight size={15} />
+            </Link>
+          </section>
+        ) : (
+          <div className="mt-8 grid gap-8 lg:grid-cols-[1.1fr_.9fr]">
+            <section>
+              <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
+                <div>
+                  <p className="eyebrow text-fitique-brown">
+                    Saved recommendations
+                  </p>
+                  <p className="mt-1 text-xs text-fitique-ink/60">
+                    Select up to two results to compare.
+                  </p>
+                </div>
+                {selectedIds.length > 0 && (
+                  <button
+                    onClick={() => setSelectedIds([])}
+                    className="focus-ring inline-flex items-center gap-1 text-xs font-extrabold text-fitique-brown hover:text-fitique-plum"
+                  >
+                    <X size={14} /> Clear selection
+                  </button>
+                )}
+              </div>
+              <div className="grid gap-3">
+                {history.map((item) => {
+                  const chosen = selectedIds.includes(item.id);
+                  return (
+                    <article
+                      key={item.id}
+                      className={`border p-4 transition ${chosen ? "border-fitique-plum bg-fitique-lilac/45" : "border-fitique-line bg-fitique-ivory"}`}
+                    >
+                      <div className="flex gap-4">
+                        <img
+                          src={item.photoUrl}
+                          alt="Saved Fit Check"
+                          className="h-24 w-20 shrink-0 object-cover"
+                        />
+                        <div className="min-w-0 flex-1">
+                          <div className="flex items-start justify-between gap-3">
+                            <div>
+                              <p className="eyebrow text-fitique-brown">
+                                <Clock3 className="mr-1 inline" size={11} />{" "}
+                                {formatDate(item.createdAt)}
+                              </p>
+                              <h2 className="mt-1 text-sm font-extrabold text-fitique-ink">
+                                {item.productName}
+                              </h2>
+                            </div>
+                            <label className="flex cursor-pointer items-center gap-2 text-[.62rem] font-extrabold uppercase tracking-[.08em] text-fitique-brown">
+                              <input
+                                type="checkbox"
+                                checked={chosen}
+                                onChange={() => toggle(item.id)}
+                                className="accent-fitique-plum"
+                              />{" "}
+                              Compare
+                            </label>
+                          </div>
+                          <p className="mt-2 text-xs text-fitique-ink/65">
+                            Suggested size{" "}
+                            <strong className="text-fitique-plum">
+                              {item.recommendedSize}
+                            </strong>{" "}
+                            · {item.confidence} confidence
+                          </p>
+                          <Link
+                            to={`/products/${item.productId}`}
+                            className="focus-ring mt-3 inline-flex items-center gap-1 text-xs font-bold text-fitique-plum hover:underline"
+                          >
+                            View this piece <ChevronRight size={13} />
+                          </Link>
+                        </div>
+                      </div>
+                    </article>
+                  );
+                })}
+              </div>
+            </section>
+            <aside className="h-fit border border-fitique-line bg-fitique-ivory p-5 lg:sticky lg:top-24">
+              <div className="flex items-center gap-3">
+                <span className="grid h-9 w-9 place-items-center rounded-full bg-fitique-plum text-white">
+                  <Columns2 size={17} />
+                </span>
+                <div>
+                  <p className="eyebrow text-fitique-brown">Comparison</p>
+                  <h2 className="serif text-2xl text-fitique-plum">
+                    The details, together
+                  </h2>
+                </div>
+              </div>
+              {selected.length < 2 ? (
+                <div className="mt-7 border-t border-fitique-line pt-6">
+                  <p className="text-sm leading-7 text-fitique-ink/65">
+                    Choose {2 - selected.length} more saved{" "}
+                    {selected.length ? "result" : "results"} to compare their
+                    recommended size, confidence, considerations, and stylist
+                    notes.
+                  </p>
+                </div>
+              ) : (
+                <div className="mt-6 grid gap-5">
+                  <div className="border-l-2 border-fitique-plum bg-fitique-lilac/40 px-3 py-3">
+                    <p className="field-label">What changed</p>
+                    <ul className="mt-2 grid gap-1.5 text-xs leading-5 text-fitique-ink/70">
+                      {comparisonChanges.map((change) => (
+                        <li key={change}>{change}</li>
+                      ))}
+                    </ul>
+                  </div>
+                  {[
+                    ["Piece", (entry) => entry.productName],
+                    [
+                      "Recommendation",
+                      (entry) =>
+                        `Size ${entry.recommendedSize} · ${entry.confidence} confidence`,
+                    ],
+                    ["Stylist note", (entry) => entry.styleTip],
+                  ].map(([label, value]) => (
+                    <div key={label}>
+                      <p className="field-label">{label}</p>
+                      <div className="mt-2 grid gap-2 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
+                        {selected.map((entry) => (
+                          <div
+                            key={entry.id}
+                            className="border border-fitique-line bg-white p-3 text-xs leading-5 text-fitique-ink/70"
+                          >
+                            <strong className="block text-fitique-plum">
+                              {entry.productName}
+                            </strong>
+                            <span className="mt-1 block">{value(entry)}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                  <div>
+                    <p className="field-label">Fit considerations</p>
+                    <div className="mt-2 grid gap-2">
+                      {selected.map((entry) => (
+                        <div
+                          key={entry.id}
+                          className="border-l-2 border-fitique-plum bg-fitique-lilac/30 px-3 py-2 text-xs leading-5 text-fitique-ink/70"
+                        >
+                          <strong className="text-fitique-plum">
+                            {entry.productName}
+                          </strong>
+                          <span className="mt-1 block">
+                            {entry.considerations?.join(" · ") ||
+                              "No additional notes."}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  <p className="border-t border-fitique-line pt-5 text-xs leading-5 text-fitique-ink/55">
+                    <Check
+                      className="mr-1 inline text-fitique-plum"
+                      size={13}
+                    />{" "}
+                    Every Fit Check remains a personal estimate; the garment
+                    guide and your comfort are the final reference.
+                  </p>
+                </div>
+              )}
+            </aside>
+          </div>
+        )}
+      </div>
+    </div>
+  );
 }

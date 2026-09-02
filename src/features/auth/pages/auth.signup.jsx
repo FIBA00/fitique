@@ -19,7 +19,7 @@ const schema = z
     password: z.string().min(6, "Password must be at least 6 characters."),
     confirmPassword: z.string(),
   })
-  .refine(values => values.password === values.confirmPassword, {
+  .refine((values) => values.password === values.confirmPassword, {
     message: "Passwords do not match.",
     path: ["confirmPassword"],
   });
@@ -27,10 +27,10 @@ const schema = z
 export default function Register() {
   usePageMeta(
     "Create account",
-    "Create a Fitique account for a more personal boutique experience."
+    "Create a Fitique account for a more personal boutique experience.",
   );
   const navigate = useNavigate();
-  const setUser = useSessionStore(state => state.setUser);
+  const setUser = useSessionStore((state) => state.setUser);
   const {
     register,
     handleSubmit,
@@ -39,7 +39,7 @@ export default function Register() {
 
   const mutation = useMutation({
     mutationFn: authService.register,
-    onSuccess: data => {
+    onSuccess: (data) => {
       setUser(data.user);
       navigate("/profile");
     },
@@ -61,7 +61,7 @@ export default function Register() {
             and save your fit preferences.
           </p>
           <form
-            onSubmit={handleSubmit(values => mutation.mutate(values))}
+            onSubmit={handleSubmit((values) => mutation.mutate(values))}
             className="mt-8 grid gap-5"
           >
             <label>

@@ -23,7 +23,7 @@ export default function Login() {
   usePageMeta("Sign in", "Sign in to your Fitique boutique account.");
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
-  const setUser = useSessionStore(state => state.setUser);
+  const setUser = useSessionStore((state) => state.setUser);
 
   const {
     register,
@@ -40,7 +40,7 @@ export default function Login() {
 
   const mutation = useMutation({
     mutationFn: authService.login,
-    onSuccess: data => {
+    onSuccess: (data) => {
       setUser(data.user);
       navigate("/profile");
     },
@@ -73,7 +73,7 @@ export default function Login() {
             Sign in to see your saved edit, delivery record, and fit profile.
           </p>
           <form
-            onSubmit={handleSubmit(values => mutation.mutate(values))}
+            onSubmit={handleSubmit((values) => mutation.mutate(values))}
             className="mt-8 grid gap-5"
           >
             <label>
@@ -99,7 +99,7 @@ export default function Login() {
                 />
                 <button
                   type="button"
-                  onClick={() => setShowPassword(value => !value)}
+                  onClick={() => setShowPassword((value) => !value)}
                   aria-label={showPassword ? "Hide password" : "Show password"}
                   className="focus-ring absolute inset-y-0 right-0 grid w-10 place-items-center text-fitique-brown"
                 >
