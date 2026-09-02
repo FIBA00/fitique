@@ -1,4 +1,4 @@
-import api, { apiIsConfigured, mockRequest } from "./api";
+import api, { apiIsConfigured, mockRequest } from "../api/api";
 import { categories, products } from "../data/data.fitResult";
 
 function filterProducts(items, filters = {}) {

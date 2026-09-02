@@ -1,4 +1,4 @@
-import api, { apiIsConfigured, mockRequest } from "./api";
+import api, { apiIsConfigured, mockRequest } from "../api/api";
 
 const previewMethods = [
   { id: "card", label: "Card payment", detail: "Your secure card step will appear here when payment is available." },

@@ -2,10 +2,10 @@ import { ArrowLeft, Check, ChevronRight, Clock3, Columns2, LogIn, Sparkles, X } 
 import { Link } from "react-router";
 import { useState } from "react";
 import { usePageMeta } from "../hooks/usePageMeta";
-import { useAuth } from "../hooks/useAuth";
+import { useAuth } from "../features/auth/hooks/useAuth";
 import { startLogin } from "../lib/startLogin";
 import { trpc } from "../lib/trpc";
-import { HangerMark } from "../components/Brand";
+import { HangerMark } from "../components/brand";
 import { cachePolicy } from "../lib/queryConfig";
 
 function formatDate(value) { return new Intl.DateTimeFormat("en", { day: "numeric", month: "short", year: "numeric" }).format(new Date(value)); }

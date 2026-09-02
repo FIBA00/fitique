@@ -1,0 +1,150 @@
+/* Lavender Lookbook authentication: a focused, editorial entry point that keeps forms approachable and human. */
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation } from "@tanstack/react-query";
+import { ArrowRight, Eye, EyeOff } from "lucide-react";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { Link, useNavigate } from "react-router";
+import { z } from "zod";
+
+// ! internal imports
+import Brand from "../../../components/brand.jsx";
+import { authService } from "../api/auth.api.js";
+import { useSessionStore } from "../hooks/useSession.js";
+import { usePageMeta } from "../../../hooks/usePageMeta.js";
+
+const schema = z.object({
+  email: z.string().email("Please enter a valid email."),
+  password: z.string().min(6, "Password must be at least 6 characters."),
+  remember: z.boolean().optional(),
+});
+
+export default function Login() {
+  usePageMeta("Sign in", "Sign in to your Fitique boutique account.");
+  const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
+  const setUser = useSessionStore(state => state.setUser);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(schema),
+    defaultValues: {
+      email: "ananya@example.com",
+      password: "fitique",
+      remember: true,
+    },
+  });
+
+  const mutation = useMutation({
+    mutationFn: authService.login,
+    onSuccess: data => {
+      setUser(data.user);
+      navigate("/profile");
+    },
+  });
+
+  return (
+    <main className="grid min-h-screen bg-fitique-paper lg:grid-cols-[.9fr_1.1fr]">
+      <section className="relative hidden overflow-hidden lg:block">
+        <img
+          src="/manus-storage/fitique-hero_801cbec7.jpg"
+          alt="Tailored neutral fashion"
+          className="absolute inset-0 h-full w-full object-cover"
+        />
+        <div className="absolute inset-0 bg-fitique-plum/35" />
+        <div className="absolute bottom-12 left-12 max-w-sm text-white">
+          <p className="eyebrow text-white/80">Your personal boutique</p>
+          <p className="serif mt-4 text-5xl leading-none">
+            Come back to what feels like you.
+          </p>
+        </div>
+      </section>
+      <section className="flex min-h-screen items-center px-6 py-10 sm:px-12">
+        <div className="mx-auto w-full max-w-md">
+          <Brand />
+          <p className="eyebrow mt-12 text-fitique-brown">A familiar face</p>
+          <h1 className="serif mt-3 text-5xl tracking-[-.04em] text-fitique-plum">
+            Welcome back.
+          </h1>
+          <p className="mt-3 text-sm leading-6 text-fitique-ink/65">
+            Sign in to see your saved edit, delivery record, and fit profile.
+          </p>
+          <form
+            onSubmit={handleSubmit(values => mutation.mutate(values))}
+            className="mt-8 grid gap-5"
+          >
+            <label>
+              <span className="field-label">Email address</span>
+              <input
+                className="field-input"
+                type="email"
+                {...register("email")}
+                autoComplete="email"
+              />
+              {errors.email && (
+                <p className="field-error">{errors.email.message}</p>
+              )}
+            </label>
+            <label>
+              <span className="field-label">Password</span>
+              <span className="relative block">
+                <input
+                  className="field-input pr-11"
+                  type={showPassword ? "text" : "password"}
+                  {...register("password")}
+                  autoComplete="current-password"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(value => !value)}
+                  aria-label={showPassword ? "Hide password" : "Show password"}
+                  className="focus-ring absolute inset-y-0 right-0 grid w-10 place-items-center text-fitique-brown"
+                >
+                  {showPassword ? <EyeOff size={17} /> : <Eye size={17} />}
+                </button>
+              </span>
+              {errors.password && (
+                <p className="field-error">{errors.password.message}</p>
+              )}
+            </label>
+            <label className="flex items-center gap-2 text-sm text-fitique-ink/65">
+              <input
+                type="checkbox"
+                {...register("remember")}
+                className="accent-fitique-plum"
+              />{" "}
+              Remember me on this device
+            </label>
+            {mutation.isError && (
+              <p
+                role="alert"
+                className="border border-[#ddb6b6] bg-[#fbebeb] p-3 text-sm text-[#893838]"
+              >
+                We could not sign you in. Please try again.
+              </p>
+            )}
+            <button
+              disabled={mutation.isPending}
+              className="plum-button focus-ring mt-2 w-full disabled:opacity-60"
+            >
+              {mutation.isPending ? "Signing you in…" : "Sign in"}
+              <ArrowRight size={15} />
+            </button>
+          </form>
+          <p className="mt-7 text-sm text-fitique-ink/65">
+            New to Fitique?{" "}
+            <Link
+              to="/register"
+              className="focus-ring font-extrabold text-fitique-plum hover:underline"
+            >
+              Create your account
+            </Link>
+          </p>
+        </div>
+      </section>
+    </main>
+  );
+}

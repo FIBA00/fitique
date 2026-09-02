@@ -57,7 +57,7 @@ function writeToLogFile(source: LogSource, entries: unknown[]) {
   const logPath = path.join(LOG_DIR, `${source}.log`);
 
   // Format entries with timestamps
-  const lines = entries.map((entry) => {
+  const lines = entries.map(entry => {
     const ts = new Date().toISOString();
     return `[${ts}] ${JSON.stringify(entry)}`;
   });
@@ -133,7 +133,7 @@ function vitePluginManusDebugCollector(): Plugin {
         }
 
         let body = "";
-        req.on("data", (chunk) => {
+        req.on("data", chunk => {
           body += chunk.toString();
         });
 
@@ -163,14 +163,25 @@ const plugins = [
     manifest: {
       name: "Fitique — Boutique Delivery & Fit Check",
       short_name: "Fitique",
-      description: "A boutique fashion shopping companion with a guided fit-check experience.",
+      description:
+        "A boutique fashion shopping companion with a guided fit-check experience.",
       theme_color: "#493551",
       background_color: "#fbf8f3",
       display: "standalone",
       start_url: "/",
-      icons: [{ src: "/manus-storage/fitique-logo_ef915542.png", sizes: "512x512", type: "image/png", purpose: "any maskable" }],
+      icons: [
+        {
+          src: "/manus-storage/fitique-logo_ef915542.png",
+          sizes: "512x512",
+          type: "image/png",
+          purpose: "any maskable",
+        },
+      ],
     },
-    workbox: { navigateFallback: "/index.html", globPatterns: ["**/*.{js,css,html,svg,png,jpg,jpeg,webp}"] },
+    workbox: {
+      navigateFallback: "/index.html",
+      globPatterns: ["**/*.{js,css,html,svg,png,jpg,jpeg,webp}"],
+    },
   }),
 ];
 

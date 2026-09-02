@@ -1,4 +1,4 @@
-import api, { apiIsConfigured, mockRequest } from "./api";
+import api, { apiIsConfigured, mockRequest } from "../api/api";
 
 const defaultPreferences = { email: true, sms: false, push: true };
 const readLocalPreferences = (orderId) => { try { const stored = JSON.parse(localStorage.getItem(`fitique-delivery-notifications-${orderId}`) || "{}"); return { email: stored.email ?? defaultPreferences.email, sms: stored.sms ?? stored.text ?? defaultPreferences.sms, push: stored.push ?? stored.browser ?? defaultPreferences.push }; } catch { return defaultPreferences; } };

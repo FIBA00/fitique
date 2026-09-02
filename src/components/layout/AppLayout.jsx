@@ -2,4 +2,14 @@
 import Header from "./Header";
 import MobileNavigation from "./MobileNavigation";
 import SiteFooter from "./SiteFooter";
-export default function AppLayout({ children, minimal = false }) { return <div className="page-shell">{!minimal && <Header />}<main className={minimal ? "" : "mobile-safe-bottom"}>{children}</main>{!minimal && <SiteFooter />} {!minimal && <MobileNavigation />}</div>; }
+
+
+export default function AppLayout({ children, minimal = false }) {
+  return (
+    <div className="page-shell">
+      {!minimal && <Header />}
+      <main className={minimal ? "" : "mobile-safe-bottom"}>{children}</main>
+      {!minimal && <SiteFooter />} {!minimal && <MobileNavigation />}
+    </div>
+  );
+}

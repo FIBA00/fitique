@@ -5,15 +5,15 @@ import { useEffect, useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useSearchParams } from "react-router";
 import { z } from "zod";
-import { useProducts } from "../hooks/useProducts";
+import { useProducts } from "../features/products/hooks/useProducts";
 import { useCartStore } from "../store/cartStore";
 import { formatCurrency } from "../lib/utils";
 import { usePageMeta } from "../hooks/usePageMeta";
-import { useAuth } from "../hooks/useAuth";
+import { useAuth } from "../features/auth/hooks/useAuth";
 import { startLogin } from "../lib/startLogin";
 import { trpc } from "../lib/trpc";
 import { toast } from "sonner";
-import { HangerMark } from "../components/Brand";
+import { HangerMark } from "../components/brand";
 import { cachePolicy } from "../lib/queryConfig";
 
 const allowedTypes = ["image/jpeg", "image/png", "image/webp"];

@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router";
 import { z } from "zod";
 import { useCartStore } from "../store/cartStore";
-import { useSessionStore } from "../store/sessionStore";
+import { useSessionStore } from "../features/auth/hooks/useSession";
 import { orderService } from "../services/orders";
 import { formatCurrency } from "../lib/utils";
 import { queryKeys } from "../lib/queryConfig";

@@ -1,4 +1,4 @@
-import api, { apiIsConfigured, mockRequest } from "./api";
+import api, { apiIsConfigured, mockRequest } from "../api/api";
 import { mockOrders } from "../data/data.fitResult";
 let orders = [...mockOrders];
 export const orderService = {
