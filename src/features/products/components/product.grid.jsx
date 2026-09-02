@@ -2,8 +2,8 @@
 import { useState } from "react";
 
 // ! internal imports
-import ProductCard from "./product.Card.jsx";
-import ProductQuickView from "./product.QuickView.jsx";
+import ProductCard from "./product.card.jsx";
+import ProductQuickView from "./product.quickView.jsx";
 
 export default function ProductGrid({ products, priority = false }) {
   const [quickViewProduct, setQuickViewProduct] = useState(null);

@@ -13,8 +13,8 @@ import { toast } from "sonner";
 
 // ! internal imports
 // # components
-import ProductGrid, { ProductSkeleton } from "../components/product.Grid.jsx";
-import ProductDecisionSupport from "../components/product.DecisionSupport.jsx";
+import ProductGrid, { ProductSkeleton } from "../components/product.grid.jsx";
+import ProductDecisionSupport from "../components/product.decisionSupport.jsx";
 
 // ? missing component import
 // import QuantitySelector from "../components/commerce/QuantitySelector";

@@ -24,12 +24,12 @@ const Cart = lazy( () => import( "./features/commerce/pages/commerce.cart.jsx" )
 const Checkout = lazy( () => import( "./features/commerce/pages/commerce.checkout.jsx" ) );
 const OrderConfirmation = lazy(() => import("./features/commerce/pages/commerce.orderConfirmation.jsx"));
 const Orders = lazy(() => import("./features/commerce/pages/commerce.orders.jsx"));
-const OrderDetails = lazy(() => import("./features/commerce/pages/commerce.orderDetails.jsx"));
-const Wishlist = lazy( () => import( "./pages/Wishlist" ) );
+const OrderDetails = lazy( () => import( "./features/commerce/pages/commerce.orderDetails.jsx" ) );
 
-
-const FitCheck = lazy(() => import("./pages/FitCheck"));
-const FitHistory = lazy(() => import("./pages/FitHistory"));
+// # user related
+const Wishlist = lazy( () => import( "./features/user/pages/user.wishlist.jsx" ) );
+const FitCheck = lazy(() => import("./features/user/pages/user.fitCheck.jsx"));
+const FitHistory = lazy(() => import("./features/user/pages/user.fitHistory.jsx"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 function StorefrontLayout() {

@@ -13,8 +13,8 @@ import { useMemo } from "react";
 
 // ! internal imports
 import { HangerMark } from "../../../components/brand.jsx";
-import ProductGrid from "../components/product.Grid.jsx";
-import ProductSkeleton from "../components/product.Grid.jsx";
+import ProductGrid from "../components/product.grid.jsx";
+import ProductSkeleton from "../components/product.grid.jsx";
 
 // # hooks
 import { useProducts } from "../hooks/useProducts.js";
