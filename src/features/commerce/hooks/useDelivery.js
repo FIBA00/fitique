@@ -1,7 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 // ! internal imports
-import { cachePolicy, queryKeys } from "../../../lib/queryConfig.js";
+import { cachePolicy, queryKeys } from "../../../api/queryConfig.js";
 import { deliveryService } from "../api/delivery.api.js";
 
 export function useDeliveryRecord(order) {

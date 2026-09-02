@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 
 // ! internal imports
 import { orderService } from "../api/orders.api.js";
-import { cachePolicy, queryKeys } from "../../../lib/queryConfig.js";
+import { cachePolicy, queryKeys } from "../../../api/queryConfig.js";
 export function useOrders() {
 	return useQuery({
 		queryKey: queryKeys.orders.list(),

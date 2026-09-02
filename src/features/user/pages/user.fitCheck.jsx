@@ -17,55 +17,25 @@ import {
 import { useEffect, useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useSearchParams } from "react-router";
-import { z } from "zod";
+import { toast } from "sonner";
 
-// ! internal imports 
+// ! internal imports
+// # hooks
+
 import { useProducts } from "../../products/hooks/useProducts";
 import { useCartStore } from "../../commerce/hooks/useCart";
-import { formatCurrency } from "../../../lib/utils";
 import { usePageMeta } from "../../../hooks/usePageMeta";
-import { useAuth } from "../../auth/hooks/useAuth";
-import { startLogin } from "../../../lib/startLogin";
-import { trpc } from "../../../lib/trpc";
-import { toast } from "sonner";
+import { useAuth } from "../../auth/hooks/useAuth.js";
+
+// # api
+import { trpc } from "../../../api/trpc.js";
+import { cachePolicy } from "../../../api/queryConfig.js";
+
+// # components
 import { HangerMark } from "../../../components/brand";
-import { cachePolicy } from "../../../lib/queryConfig";
-import { imageToDataUrl } from "../../../lib/utils";
-
-const allowedTypes = ["image/jpeg", "image/png", "image/webp"];
-const MAX_PHOTO_BYTES = 7 * 1024 * 1024;
-const schema = z.object({
-	photo: z
-		.any()
-		.refine(
-			(file) => file instanceof File,
-			"Please add a JPG, PNG, or WEBP photo.",
-		)
-		.refine(
-			(file) => !file || allowedTypes.includes(file.type),
-			"Use a JPG, PNG, or WEBP image.",
-		)
-		.refine(
-			(file) => !file || file.size <= MAX_PHOTO_BYTES,
-			"Choose an image smaller than 7 MB.",
-		),
-	consent: z
-		.boolean()
-		.refine(Boolean, "Please agree before we analyse your photo."),
-	product: z.string().min(1, "Choose a piece to check."),
-	extras: z.array(z.string()).default([]),
-});
-const profileSchema = z.object({
-	preferredSize: z.string().max(16),
-	height: z.string().max(32),
-	bodyShape: z.string().max(48),
-	stylePreferences: z.string().max(500),
-	fitNotes: z.string().max(500),
-});
-const extras = ["Shoes", "Scarf", "Belt", "Bag", "Jewelry"];
-const steps = ["Photo", "Piece", "Extras", "Result"];
-
-
+import { startLogin, imageToDataUrl, formatCurrency } from "../../../lib/utils";
+import { profileSchema, imageSchema } from "../../../schema/auth.schema.js";
+import { extras, steps } from "../../../configs/constants.js";
 
 // Todo: breakdown into components this code is too much .
 export default function FitCheck() {
@@ -86,6 +56,7 @@ export default function FitCheck() {
 	});
 	const { data: catalogProducts = [] } = useProducts({ sort: "newest" });
 	const utils = trpc.useUtils();
+
 	const {
 		register,
 		setValue,
@@ -94,7 +65,7 @@ export default function FitCheck() {
 		handleSubmit,
 		formState: { errors },
 	} = useForm({
-		resolver: zodResolver(schema),
+		resolver: zodResolver(imageSchema),
 		defaultValues: {
 			photo: null,
 			consent: false,
@@ -102,6 +73,7 @@ export default function FitCheck() {
 			extras: [],
 		},
 	});
+
 	const profileForm = useForm({
 		resolver: zodResolver(profileSchema),
 		defaultValues: {
@@ -120,6 +92,7 @@ export default function FitCheck() {
 			catalogProducts.find((product) => product.id === selectedProductId),
 		[catalogProducts, selectedProductId],
 	);
+
 	const saveProfile = trpc.fitCheck.saveProfile.useMutation({
 		onSuccess: (profile) => {
 			if (profile?.preferredSize)
@@ -135,6 +108,7 @@ export default function FitCheck() {
 				"We could not save your profile. Please sign in and try again.",
 			),
 	});
+
 	const analyzeMutation = trpc.fitCheck.analyze.useMutation({
 		onSuccess: (data) => {
 			setResult(data);
@@ -156,6 +130,7 @@ export default function FitCheck() {
 		},
 		[previewUrl],
 	);
+
 	useEffect(() => {
 		if (profileQuery.data) {
 			if (profileQuery.data.preferredSize)
@@ -317,7 +292,7 @@ export default function FitCheck() {
 						);
 					})}
 				</div>
-				<div className="mt-8 min-h-[31rem] border border-fitique-line bg-fitique-ivory p-5 sm:p-8 lg:p-10">
+				<div className="mt-8 min-h-124 border border-fitique-line bg-fitique-ivory p-5 sm:p-8 lg:p-10">
 					{step === 1 && (
 						<section className="mx-auto max-w-xl">
 							<p className="eyebrow text-fitique-brown">
@@ -345,7 +320,7 @@ export default function FitCheck() {
 									<img
 										src={previewUrl}
 										alt="Your selected Fit Check photo"
-										className="max-h-[26rem] w-full object-cover"
+										className="max-h-104 w-full object-cover"
 									/>
 									<div className="flex items-center justify-between bg-fitique-ivory p-3">
 										<span className="text-sm font-bold">
@@ -605,7 +580,7 @@ export default function FitCheck() {
 										alt="Your Fit Check photo"
 										className="aspect-[.78] h-full w-full object-cover"
 									/>
-									<span className="absolute left-4 top-4 bg-fitique-ivory px-3 py-1.5 text-[.6rem] font-extrabold uppercase tracking-[.1em] text-fitique-plum">
+									<span className="absolute left-4 top-4 bg-fitique-ivory px-3 py-1.5 text-[.6rem] font-extrabold uppercase tracking-widest text-fitique-plum">
 										Live Fit Check
 									</span>
 								</div>

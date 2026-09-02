@@ -21,7 +21,7 @@ import { orderService } from "../api/orders.api.js";
 
 // # utils
 import { formatCurrency } from "../../../lib/utils";
-import { queryKeys } from "../../../lib/queryConfig";
+import { queryKeys } from "../../../api/queryConfig.js";
 import { useSessionStore } from "../../auth/hooks/useSession";
 
 // # components

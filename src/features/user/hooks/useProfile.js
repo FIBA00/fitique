@@ -2,7 +2,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 // ! internal imports
 
-import { cachePolicy, queryKeys } from "../../../lib/queryConfig";
+import { cachePolicy, queryKeys } from "../../../api/queryConfig";
 import { authService } from "../../auth/api/auth.api";
 
 export function useProfile(enabled = true) {

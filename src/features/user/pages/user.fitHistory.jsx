@@ -13,9 +13,9 @@ import { useState } from "react";
 import { usePageMeta } from "../../../hooks/usePageMeta";
 import { useAuth } from "../../auth/hooks/useAuth";
 import { startLogin } from "../../../lib/startLogin";
-import { trpc } from "../../../lib/trpc";
+import { trpc } from "../../../api/trpc";
 import { HangerMark } from "../../../components/brand";
-import { cachePolicy } from "../../../lib/queryConfig";
+import { cachePolicy } from "../../../api/queryConfig";
 
 function formatDate(value) {
 	return new Intl.DateTimeFormat("en", {

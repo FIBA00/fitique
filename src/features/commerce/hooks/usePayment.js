@@ -1,7 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 // ! internal imports
-import { cachePolicy, queryKeys } from "../../../lib/queryConfig.js";
+import { cachePolicy, queryKeys } from "../../../api/queryConfig.js";
 import { paymentService } from "../api/payment.api.js";
 
 export function usePaymentMethods() {

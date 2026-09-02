@@ -1,5 +1,5 @@
-import { trpc } from "../../../lib/trpc";
-import { cachePolicy } from "../../../lib/queryConfig";
+import { trpc } from "../../../api/trpc.js";
+import { cachePolicy } from "../../../api/queryConfig.js";
 
 export function useAuth() {
   const query = trpc.auth.me.useQuery(undefined, cachePolicy.profile);
