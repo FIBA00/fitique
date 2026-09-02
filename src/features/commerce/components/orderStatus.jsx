@@ -1,0 +1,17 @@
+/* Lavender Lookbook status labels: succinct shipping clarity in the project's signature plum and paper colors. */
+const styles = {
+	Pending: "bg-fitique-sand text-fitique-ink",
+	Confirmed: "bg-fitique-lilac text-fitique-plum",
+	Preparing: "bg-fitique-paper text-fitique-brown",
+	"Out for Delivery": "bg-fitique-plum text-white",
+	Delivered: "bg-[#dbe8dc] text-[#365c3b]",
+	Cancelled: "bg-[#f4dddd] text-[#8f3e3e]",
+};
+export default function OrderStatus({ status }) {
+	return (
+		<span
+			className={`inline-flex px-2.5 py-1 text-[.62rem] font-extrabold uppercase tracking-[.1em] ${styles[status] || styles.Pending}`}>
+			{status}
+		</span>
+	);
+}

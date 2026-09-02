@@ -22,7 +22,7 @@ import {
 import QuantitySelector from "../commerce/QuantitySelector";
 
 // # hooks
-import { useCartStore } from "../hooks/useCart";
+import { useCartStore } from "../../commerce/hooks/useCart";
 import { formatCurrency } from "../../../lib/utils";
 // ? missing imports
 import { useWishlistStore } from "../../store/wishlistStore";

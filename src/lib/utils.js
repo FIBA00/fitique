@@ -34,3 +34,11 @@ export function toParams ( filters )
       .map(([key, value]) => [key, String(value)])
   );
 }
+
+export const timestamp = (value) =>
+	value
+		? new Intl.DateTimeFormat("en", {
+				dateStyle: "medium",
+				timeStyle: "short",
+			}).format(new Date(value))
+		: "Awaiting delivery time";

@@ -5,7 +5,7 @@ import { toast } from "sonner";
 
 // ! internal imports
 import { formatCurrency, getDiscount } from "../../../lib/utils.js";
-import { useCartStore } from "../hooks/useCart.js";
+import { useCartStore } from "../../commerce/hooks/useCart.js";
 import { useWishlistStore } from "../../store/wishlistStore";
 
 

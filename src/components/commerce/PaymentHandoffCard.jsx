@@ -1,5 +1,5 @@
 import { CreditCard, ExternalLink, LoaderCircle, ShieldCheck } from "lucide-react";
-import { usePaymentHandoff } from "../../hooks/useIntegrationData";
+import { usePaymentHandoff } from "../../features/commerce/hooks/useDelivery";
 
 export default function PaymentHandoffCard({ order }) {
   const { data: cachedHandoff, isLoading } = usePaymentHandoff(order.id);

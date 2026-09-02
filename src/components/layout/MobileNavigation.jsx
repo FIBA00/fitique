@@ -1,7 +1,7 @@
 /* Lavender Lookbook mobile navigation: a light, tactile bottom dock with compact plum active states. */
 import { Grid2X2, Heart, House, ShoppingBag, UserRound } from "lucide-react";
 import { NavLink } from "react-router";
-import { useCartStore } from "../../features/products/hooks/useCart";
+import { useCartStore } from "../../features/commerce/hooks/useCart";
 
 const links = [
   { to: "/", label: "Home", icon: House },

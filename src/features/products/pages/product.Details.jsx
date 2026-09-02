@@ -23,7 +23,7 @@ import ProductDecisionSupport from "../components/product.DecisionSupport.jsx";
 import { useProduct, useProducts } from "../hooks/useProducts.js";
 import { usePageMeta } from "../../../hooks/usePageMeta.js";
 import { formatCurrency } from "../../../lib/utils.js";
-import { useCart } from "../hooks/useCart.js";
+import { useCart } from "../../commerce/hooks/useCart.js";
 
 // ? missing hook import
 import { useWishlistStore } from "../store/wishlistStore";

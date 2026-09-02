@@ -17,15 +17,14 @@ const Register = lazy( () => import( "./features/auth/pages/auth.signup.jsx" ) )
 
 // # products related
 const Products = lazy(() => import("./features/products/pages/products.jsx"));
-const ProductDetails = lazy(() => import("./features/products/pages/productDetails.jsx"));
+const ProductDetails = lazy(() => import("./features/products/pages/product.Details.jsx"));
 
-
-
-const Cart = lazy( () => import( "./pages/Cart" ) );
-const Checkout = lazy(() => import("./pages/Checkout"));
-const OrderConfirmation = lazy(() => import("./features/orders/pages/OrderConfirmation.jsx"));
-const Orders = lazy(() => import("./features/orders/pages/Orders.jsx"));
-const OrderDetails = lazy(() => import("./features/orders/pages/OrderDetails.jsx"));
+// # commerce relaed 
+const Cart = lazy( () => import( "./features/commerce/pages/commerce.cart.jsx" ) );
+const Checkout = lazy( () => import( "./features/commerce/pages/commerce.checkout.jsx" ) );
+const OrderConfirmation = lazy(() => import("./features/commerce/pages/commerce.orderConfirmation.jsx"));
+const Orders = lazy(() => import("./features/commerce/pages/commerce.orders.jsx"));
+const OrderDetails = lazy(() => import("./features/commerce/pages/commerce.orderDetails.jsx"));
 const Wishlist = lazy( () => import( "./pages/Wishlist" ) );
 
 
@@ -55,9 +54,11 @@ export default function App() {
         <Routes>
           <Route element={<StorefrontLayout />}>
             <Route path="/" element={<Home />} />
-            
+            {/* ! products related */}
             <Route path="/products" element={ <Products /> } />
-            <Route path="/products/:productId" element={<ProductDetails />} />
+            <Route path="/products/:productId" element={ <ProductDetails /> } />
+            
+            {/* ! shoping and commerce related  */ }
             <Route path="/cart" element={<Cart />} />
             <Route path="/checkout" element={<Checkout />} />
             <Route

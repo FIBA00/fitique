@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import { Link, useSearchParams } from "react-router";
 import { z } from "zod";
 import { useProducts } from "../features/products/hooks/useProducts";
-import { useCartStore } from "../features/products/hooks/useCart";
+import { useCartStore } from "../features/commerce/hooks/useCart";
 import { formatCurrency } from "../lib/utils";
 import { usePageMeta } from "../hooks/usePageMeta";
 import { useAuth } from "../features/auth/hooks/useAuth";
