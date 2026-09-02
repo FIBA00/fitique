@@ -1,0 +1,173 @@
+const image = (id, options = "auto=format&fit=crop&w=900&q=84") =>
+  ["https://images.unsplash.com/", id, "?", options].join("");
+
+
+export const products = [
+  {
+    id: "eloise-ribbed-midi",
+    name: "Eloise Ribbed Midi",
+    category: "Women",
+    type: "Dress",
+    price: 128,
+    previousPrice: 158,
+    badge: "New in",
+    colors: ["Lilac", "Oatmeal", "Ink"],
+    sizes: ["XS", "S", "M", "L", "XL"],
+    image: "/manus-storage/fitique-new-arrival_4e1c8edb.jpg",
+    images: [
+      "/manus-storage/fitique-new-arrival_4e1c8edb.jpg",
+      image("photo-1566174053879-31528523f8ae"),
+      image("photo-1566206091558-7f218b696731"),
+    ],
+    description:
+      "A softly structured rib-knit dress with a square neckline and fluid midi length. Designed to move from considered mornings to last-minute plans.",
+    fitNote:
+      "Close through the body with natural stretch. Choose your usual size for a refined fit.",
+    inStock: true,
+    newArrival: true,
+  },
+  {
+    id: "soren-tailored-blazer",
+    name: "Soren Tailored Blazer",
+    category: "Women",
+    type: "Outerwear",
+    price: 186,
+    colors: ["Oatmeal", "Charcoal"],
+    sizes: ["S", "M", "L", "XL"],
+    image: image("photo-1591047139829-d91aecb6caea"),
+    images: [
+      image("photo-1591047139829-d91aecb6caea"),
+      image("photo-1581044777550-4cfa60707c03"),
+      image("photo-1610652492500-ded49ceeb378"),
+    ],
+    description:
+      "A softly oversized blazer cut in a warm, tactile weave. The balance of an easy shoulder and a precise lapel makes it endlessly layerable.",
+    fitNote: "Relaxed through the shoulder. Size down for a neater shape.",
+    inStock: true,
+    newArrival: true,
+  },
+  {
+    id: "maris-silk-scarf",
+    name: "Maris Silk Scarf",
+    category: "Accessories",
+    type: "Scarf",
+    price: 42,
+    colors: ["Blackberry", "Cream"],
+    sizes: ["One size"],
+    image: image("photo-1601924994987-69e26d50dc26"),
+    images: [
+      image("photo-1601924994987-69e26d50dc26"),
+      image("photo-1584030373081-f37b7bb4fa8e"),
+    ],
+    description:
+      "A light silk square printed with a restrained botanical sketch. Wear it at the neck, in your hair, or tied to your favorite bag.",
+    fitNote: "One size. 65cm square.",
+    inStock: true,
+    newArrival: true,
+  },
+  {
+    id: "madeleine-slingback",
+    name: "Madeleine Slingback",
+    category: "Shoes",
+    type: "Heels",
+    price: 112,
+    previousPrice: 140,
+    colors: ["Soft Brown", "Blackberry"],
+    sizes: ["36", "37", "38", "39", "40", "41"],
+    image: image("photo-1543163521-1bf539c55dd2"),
+    images: [
+      image("photo-1543163521-1bf539c55dd2"),
+      image("photo-1460353581641-37baddab0fa2"),
+      image("photo-1542291026-7eec264c27ff"),
+    ],
+    description:
+      "A softly pointed slingback with a low sculpted heel and supple leather finish. Easy enough for errands; polished enough for dinner.",
+    fitNote: "True to size. If you are between sizes, choose the larger size.",
+    inStock: true,
+    newArrival: false,
+  },
+  {
+    id: "cove-shoulder-bag",
+    name: "Cove Shoulder Bag",
+    category: "Accessories",
+    type: "Bag",
+    price: 96,
+    colors: ["Sand", "Espresso"],
+    sizes: ["One size"],
+    image: image("photo-1584917865442-de89df76afd3"),
+    images: [
+      image("photo-1584917865442-de89df76afd3"),
+      image("photo-1594223274512-ad4803739b7c"),
+    ],
+    description:
+      "A compact shoulder bag in woven vegan leather, finished with a softly curved strap and a generous interior for everyday essentials.",
+    fitNote: "One size. Fits phone, wallet, keys, and a small beauty pouch.",
+    inStock: true,
+    newArrival: true,
+  },
+  {
+    id: "mira-poplin-shirt",
+    name: "Mira Poplin Shirt",
+    category: "Women",
+    type: "Top",
+    price: 74,
+    colors: ["Soft White", "Mist Blue"],
+    sizes: ["XS", "S", "M", "L", "XL"],
+    image: image("photo-1485968579580-b6d095142e6e"),
+    images: [
+      image("photo-1485968579580-b6d095142e6e"),
+      image("photo-1521572163474-6864f9cf17ab"),
+    ],
+    description:
+      "A crisp cotton shirt with an easy curved hem and delicate cuff details. A neat foundation for the way you dress now.",
+    fitNote: "Comfortably relaxed. Choose your normal size.",
+    inStock: true,
+    newArrival: false,
+  },
+  {
+    id: "tala-wide-leg-trouser",
+    name: "Tala Wide-Leg Trouser",
+    category: "Women",
+    type: "Bottoms",
+    price: 104,
+    colors: ["Taupe", "Ink"],
+    sizes: ["XS", "S", "M", "L", "XL"],
+    image: image("photo-1594633312681-425c7b97ccd1"),
+    images: [
+      image("photo-1594633312681-425c7b97ccd1"),
+      image("photo-1506629905607-d405b7a30db9"),
+    ],
+    description:
+      "High-rise trousers with a fluid wide leg and tailored front pleats. The fabric is substantial enough to hold its line yet soft on the move.",
+    fitNote: "High-rise fit. The waistband has a little give.",
+    inStock: true,
+    newArrival: false,
+  },
+  {
+    id: "meridian-knit",
+    name: "Meridian Knit Polo",
+    category: "Men",
+    type: "Top",
+    price: 86,
+    colors: ["Stone", "Pine"],
+    sizes: ["S", "M", "L", "XL"],
+    image: image("photo-1488161628813-04466f872be2"),
+    images: [
+      image("photo-1488161628813-04466f872be2"),
+      image("photo-1519085360753-af0119f7cbe7"),
+    ],
+    description:
+      "A textured knit polo with a soft open collar and clean ribbed finish. Made for layers, long lunches, and light travel.",
+    fitNote: "Regular fit. Choose your usual size.",
+    inStock: false,
+    newArrival: false,
+  },
+];
+
+
+export const outfitPieces = [
+  products[0],
+  products[3],
+  products[4],
+  products[2],
+];
