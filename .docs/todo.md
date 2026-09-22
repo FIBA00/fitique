@@ -1,0 +1,33 @@
+# Fitique Expansion Checklist
+
+- [x] Upgrade the project with secure backend, database, and authenticated-user support.
+- [x] Add a fit-profile data model and profile persistence APIs.
+- [x] Add server-side vision analysis with structured, safety-conscious fit guidance.
+- [x] Connect Fit Check photo submission and saved results to the backend.
+- [x] Build product quick-view with size, colour, quantity, wishlist, and Fit Check actions.
+- [x] Add recommendation-aware sorting and a refined catalogue control.
+- [x] Add checkout submission animation and state-locking.
+- [x] Create a detailed order-confirmation page with delivery and item summary.
+- [x] Validate desktop and mobile flows, then save and deliver a checkpoint.
+- [x] Build a signed-in Fit Check history screen with saved-result comparison.
+- [x] Add comparison selection, differences, and links back to the associated product.
+- [x] Deferred by user: wire Stripe-backed checkout and secure payment-status updates independently; the handoff interface is ready.
+- [x] Deferred by user: wire opt-in delivery alerts independently; the preference controls and event-feed interface are ready.
+- [x] Superseded by the user-approved placeholder-flow validation and recorded in the subsequent checkpoint.
+- [x] Create clearly labeled placeholder payment method and payment-status interfaces for later backend wiring.
+- [x] Add delivery notification preference controls and a delivery event-feed interface using placeholder data.
+- [x] Validate the placeholder integration interface and save a new checkpoint.
+- [x] Add centralized TanStack Query options with cache lifetimes and query keys for every backend-bound Fitique resource.
+- [x] Refactor product, order, Fit Check, profile, payment, notification, and delivery-event data access to use the cached service/query layer.
+- [x] Add a provider-ready payment session handoff interface without collecting payment details.
+- [x] Add mapping-ready delivery channels, timestamps, tracking identifiers, and event payload display states.
+- [x] Validate the cached data flows and provider-ready interfaces on desktop and mobile, then save and deliver a checkpoint.
+- [x] Produce a prioritized industry-standard Fitique product backlog covering remaining launch, operations, growth, and quality work.
+- [ ] Add product decision tools: size guide, size conversion, garment measurements, care, delivery and return context, and locally saved search preferences.
+- [ ] Add bag and checkout support: promotion entry, gift/order notes, delivery estimate messaging, and clear quote-ready summary states.
+- [ ] Build self-service return and exchange request interfaces, including order selection, reasons, outcomes, and progress timeline.
+- [ ] Add post-purchase Fit Check feedback to improve the future fit-learning contract.
+- [ ] Build a customer notifications centre, alert preferences, and saved-search interface with local persistence and backend-ready data contracts.
+- [ ] Add help centre, support request, shipping, returns, privacy, terms, and fit-guidance policy pages.
+- [ ] Improve accessibility, responsive navigation, loading/empty/error states, performance cues, and frontend integration documentation.
+- [ ] Validate all completed frontend-only journeys on desktop and mobile, then save and deliver a checkpoint.
